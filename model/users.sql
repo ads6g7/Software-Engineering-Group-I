@@ -1,4 +1,3 @@
-DROP TABLE IF EXISTS users.log;
 DROP TABLE IF EXISTS users.authentication;
 DROP TABLE IF EXISTS users.user_info;
 DROP TABLE IF EXISTS users.courses;
@@ -6,6 +5,8 @@ DROP TABLE IF EXISTS users.professors;
 DROP TABLE IF EXISTS users.teaches;
 DROP TABLE IF EXISTS users.application;
 DROP TABLE IF EXISTS users.internationalapp;
+DROP TABLE IF EXISTS users.applied;
+DROP TABLE IF EXISTS users.applicantWants;
 
 DROP SCHEMA IF EXISTS users;
 
@@ -53,9 +54,9 @@ CREATE TABLE users.authentication (
 --	TA			- The TA for the course.
 --	description	- A brief description of the course.
 CREATE TABLE users.courses(
-	courseID	INT(5) PRIMARY KEY,
+	courseID	INT PRIMARY KEY,
 	department	VARCHAR(20),
-	courseNum	INT(4),
+	courseNum	INT,
 	instructor	VARCHAR(30) REFERENCES users.professor,
 	TA			VARCHAR(30) DEFAULT NULL,
 	description	VARCHAR(200)
@@ -152,8 +153,4 @@ CREATE TABLE users.applicantWants(
 	course		INT REFERENCES users.courses(courseID),
 	grade		VARCHAR(2) NOT NULL
 );
-
-
-CREATE INDEX log_log_id_index ON users.log (username);
-
 
