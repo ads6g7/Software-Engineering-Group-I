@@ -7,5 +7,5 @@ $data=file_get_contents('testing.pdf');
 //escape the binary data
 $escaped = bin2hex( $data );
 //Insert into database
-pg_query("INSERT INTO users.resume (filename, pdf) VALUES ('testing', decode('{$escaped}', 'hex'))") or die('Error: '.pg_last_error());
+pg_query("INSERT INTO users.applications (filename, pdf) VALUES ('testing', decode('{$escaped}', 'hex'))") or die('Error: '.pg_last_error());
 ?>

@@ -110,7 +110,9 @@ CREATE TABLE users.applications(
 	degree				VARCHAR(20) NOT NULL,
 	Advisor				VARCHAR(30) NOT NULL,
 	isInternational		BOOLEAN,
-	GATO				BOOLEAN
+	GATO				BOOLEAN,
+	filename 			text,
+	pdf 				bytea
 );
 
 --Table: users.internationalapp
