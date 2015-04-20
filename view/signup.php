@@ -33,6 +33,22 @@ CS4320
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+	
+	<?php
+	$today = date("Y-m-d");
+	$date = "2015-04-25";
+	
+	if (strtotime($date) < strtotime($today))
+	{
+		echo "<div class=\"container\">
+    <div class=\"row\">
+		<div class=\"col-md-4 col-md-offset-4\">
+    		<div class=\"panel panel-default\">
+			  	<div class=\"panel-heading\">
+			    	<h3 class=\"panel-title\">Time window closed</h3>";
+		exit;
+	}
+	?>
   </head>
 
   <body role="document">

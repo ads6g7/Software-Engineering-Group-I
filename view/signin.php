@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <!-- Sign In from template, Ben Woolridge, Shannon Hall -->
@@ -21,6 +20,21 @@
     <!-- Custom styles for this template -->
     <link href="signin.css" rel="stylesheet">
 
+	<?php
+	$today = date("Y-m-d");
+	$date = "2015-04-25";
+	
+	if (strtotime($date) < strtotime($today))
+	{
+		echo "<div class=\"container\">
+    <div class=\"row\">
+		<div class=\"col-md-4 col-md-offset-4\">
+    		<div class=\"panel panel-default\">
+			  	<div class=\"panel-heading\">
+			    	<h3 class=\"panel-title\">Time window closed</h3>";
+		exit;
+	}
+	?>
   
 
   </head>
