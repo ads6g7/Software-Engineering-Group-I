@@ -45,10 +45,11 @@ CS4320
 		<div class=\"col-md-4 col-md-offset-4\">
     		<div class=\"panel panel-default\">
 			  	<div class=\"panel-heading\">
-			    	<h3 class=\"panel-title\">Time window closed</h3>";
-		exit;
-	}
-	?>
+			    	<div class="alert alert-danger" role="alert">
+                      <span aria-hidden="true"></span>
+                      <span class="sr-only"> Error:</span>✘ Time Window Closed
+</div>
+			    	
   </head>
 
   <body role="document">
