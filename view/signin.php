@@ -45,15 +45,16 @@
 	
 	if (strtotime($date) < strtotime($today)) {
 		echo "<div class=\"container\">
-    <div class=\"row\">
-		<div class=\"col-md-4 col-md-offset-4\">
+			<div class=\"row\">
+			<div class=\"col-md-4 col-md-offset-4\">
     		<div class=\"panel panel-default\">
-			  	<div class=\"panel-heading\">
-			    	<div class="alert alert-danger" role="alert">
-                      <span aria-hidden="true"></span>
-                      <span class="sr-only"> Error:</span>✘ Time Window Closed
-</div>
-  ";?>
+		  	<div class=\"panel-heading\">
+		   	<div class=\"alert alert-danger\" role=\"alert\">
+			<span aria-hidden=\"true\"></span>
+            <span class=\"sr-only\"> Error:</span>✘ Time Window Closed</div>";
+			exit;
+	}
+	?>
 
   </head>
 
