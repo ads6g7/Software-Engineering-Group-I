@@ -1,13 +1,6 @@
-<<<<<<< HEAD
-
-<!DOCTYPE html>
-<html lang="en">
-<!-- Sign In from template, Ben Woolridge -->
-=======
 <!DOCTYPE html>
 <html lang="en">
 <!-- Sign In from template, Ben Woolridge, Shannon Hall -->
->>>>>>> skhhdc
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,71 +8,6 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
-<<<<<<< HEAD
-    <title>Applicant Home</title>
-
- <!-- Bootstrap core CSS -->
-    <link href="http://babbage.cs.missouri.edu/~skhhdc/cs2830/finalProject/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap theme -->
-    <link href="http://babbage.cs.missouri.edu/~skhhdc/cs2830/finalProject/dist/css/bootstrap-theme.min.css" rel="stylesheet">
-
-
-</script>
-<style>
-.panel{
-  max-width: 330px;
-  margin: 0 auto;
-  }
-.btn-block{
-  max-width: 110px;
-  text-align: center;
-  margin: 0 auto;
-  }
-.container{
-	text-align:center;
-	}
-.jumbotron{
-	text-align:center;
-	}
-
-</style>
-  </head>
-
-  <body>
-<nav class="navbar-wrapper navbar-default navbar-fixed-top" role="navigation">
-        <div class="container">
-          <div class="navbar-header">
-            <a class="navbar-brand" href="#">Dashboard</a>
-          </div>
-		  <div class="collapse navbar-collapse navbar-ex1-collapse">
-    <div class="collapse navbar-collapse">
-            <ul class="nav navbar-nav">
-              <li class="active"><a href="http://groupi-softwareeng.rhcloud.com/applicantdashboard.html"><span ></span> Home</a></li>
-			   <li ><a href="http://groupi-softwareeng.rhcloud.com/signup.html"><span ></span>Apply</a></li>
-              <li ><a href="#"><span ></span>Logout</a></li>
-               
-            </div>
-        </div>
-		<div class="container theme-showcase" role="main">
-
-      <!-- Main jumbotron for a primary marketing message or call to action -->
-      <div class="jumbotron">
-	  		<div class="panel panel-info">
-            <div class="panel-heading">
-              <h3 class="panel-title">Welcome Back!</h3>
-            </div>
-            <div class="panel-body">
-              From this page you can check your application status, apply, etc.</br>
-            </div>
-          </div>
-		  <br>
-		  <button class="btn btn-md btn-success center btn-block" type="submit">Check Status</button>
-
-
-</div>
-</nav>
-
-=======
     <link rel="icon" href="../../favicon.ico">
 
     <title>Signin</title>
@@ -95,8 +23,20 @@
 <div class="navbar navbar-default">
         <div class="container">
           <div class="navbar-header">
-            <a class="navbar-brand">Sign In</a>
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand">Application Form</a>
           </div>
+          <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li><a href="http://groupi-softwareeng.rhcloud.com/applicantdashboard.html">Home</a></li>
+			  <li class="active"><a href="http://groupi-softwareeng.rhcloud.com/applicantdashboard.html#">Sign Up</a></li>
+
+        </div>
       </div>
       
 	<?php
@@ -161,6 +101,5 @@
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
->>>>>>> skhhdc
   </body>
 </html>
