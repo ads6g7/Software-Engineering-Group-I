@@ -21,7 +21,7 @@
     <link href="signin.css" rel="stylesheet">
 
 	<?php
-	$conn = pg_connect("host=127.4.136.130:5432 dbname=groupi user=adminup8hec1 password=evnEWGkla84u") or die("Could not connect: ".pg_last_error());
+	//$conn = pg_connect("host=127.4.136.130 port=5432 dbname=groupi user=adminup8hecl password=evnEWGkla94u") or die("Could not connect: ".pg_last_error());
 
 	$today = date("Y-m-d");
 	$date = "2015-04-25";
@@ -56,12 +56,10 @@
 	
 	}*////////////
 	?>
-=======
 			    	<div class="alert alert-danger" role="alert">
                       <span aria-hidden="true"></span>
                       <span class="sr-only"> Error:</span>✘ Time Window Closed
 </div>
->>>>>>> origin/master
   
 
   </head>
