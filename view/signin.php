@@ -24,17 +24,16 @@
 	$today = date("Y-m-d");
 	$date = "2015-04-25";
 	
-	if (strtotime($date) < strtotime($today))
-	{
+	if (strtotime($date) < strtotime($today)) {
 		echo "<div class=\"container\">
     <div class=\"row\">
 		<div class=\"col-md-4 col-md-offset-4\">
     		<div class=\"panel panel-default\">
 			  	<div class=\"panel-heading\">
-			    	<h3 class=\"panel-title\">Time window closed</h3>";
-		exit;
-	}
-	?>
+			    	<div class="alert alert-danger" role="alert">
+                      <span aria-hidden="true"></span>
+                      <span class="sr-only"> Error:</span>✘ Time Window Closed
+</div>
   
 
   </head>
