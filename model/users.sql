@@ -1,14 +1,14 @@
-DROP TABLE IF EXISTS users.authentication;
-DROP TABLE IF EXISTS users.user_info;
-DROP TABLE IF EXISTS users.courses;
-DROP TABLE IF EXISTS users.professors;
-DROP TABLE IF EXISTS users.teaches;
-DROP TABLE IF EXISTS users.application;
-DROP TABLE IF EXISTS users.internationalapp;
-DROP TABLE IF EXISTS users.applied;
-DROP TABLE IF EXISTS users.applicantWants;
+DROP TABLE IF EXISTS users.authentication CASCADE;
+DROP TABLE IF EXISTS users.user_info CASCADE;
+DROP TABLE IF EXISTS users.courses CASCADE;
+DROP TABLE IF EXISTS users.professors CASCADE;
+DROP TABLE IF EXISTS users.teaches CASCADE;
+DROP TABLE IF EXISTS users.application CASCADE;
+DROP TABLE IF EXISTS users.internationalapp CASCADE;
+DROP TABLE IF EXISTS users.applied CASCADE;
+DROP TABLE IF EXISTS users.applicantWants CASCADE;
 
-DROP SCHEMA IF EXISTS users;
+DROP SCHEMA IF EXISTS users CASCADE;
 
 CREATE SCHEMA users;
 
@@ -23,27 +23,32 @@ CREATE SCHEMA users;
 --	  rating			- The rating given to the user by the admin.
 --    comments		    - Comments on this user.  
 CREATE TABLE users.user_info (
-	username 			VARCHAR(30) PRIMARY KEY REFERENCES users.authentication,
+	username 			VARCHAR(30) PRIMARY KEY, --this should be larger just in case
 	fname				VARCHAR(20) NOT NULL,
 	lname				VARCHAR(20) NOT NULL,
-	email				VARCHAR(20) NOT NULL,
+	email				VARCHAR(40) NOT NULL, --this needs to be larger size, at min needs 25 but 30 would be better
 	phone				VARCHAR(15) NOT NULL,
 	registration_date 	TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	rating				INT DEFAULT NULL,
+	rating				INTEGER DEFAULT NULL,
 	comments 			VARCHAR(500)
 );
 
--- Table: users.authentication
--- Columns:
---    username      - The username tied to the authentication info.
---    password_hash - The hash of the user's password + salt. Expected to be SHA1.
---    salt          - The salt to use. Expected to be a SHA1 hash of a random input.
-CREATE TABLE users.authentication (
-	username 		VARCHAR(30) PRIMARY KEY,
-	password_hash 	CHAR(40) NOT NULL,
-	salt 			CHAR(40) NOT NULL,
-	FOREIGN KEY (username) REFERENCES users.user_info(username)
+INSERT INTO users.user_info VALUES('x', 'dr', 'x', 'something@something.com', '123-456-7890', default, 0, 'n/a');
+
+--Table: users.professors
+--Columns:
+--	username	- The username of the instructor.
+--	instructor	- The Instructor's Name.
+--	
+CREATE TABLE users.professors(
+	username	VARCHAR(30) NOT NULL REFERENCES users.user_info PRIMARY KEY,
+	instructor	VARCHAR(30) NOT NULL UNIQUE
 );
+
+INSERT INTO users.professors VALUES ('x','Dr. X');
+--INSERT INTO users.professors VALUES (,'Dr. Y');
+--INSERT INTO users.professors VALUES (,'Dr. Z');
+--INSERT INTO users.professors VALUES (,'Dr. A');
 
 --Table: users.courses
 --Columns:
@@ -54,28 +59,19 @@ CREATE TABLE users.authentication (
 --	TA			- The TA for the course.
 --	description	- A brief description of the course.
 CREATE TABLE users.courses(
-	courseID	INT PRIMARY KEY,
-	department	VARCHAR(20),
-	courseNum	INT,
-	instructor	VARCHAR(30) REFERENCES users.professor,
+	courseID	INTEGER PRIMARY KEY,
+	department	VARCHAR(30),
+	courseNum	INTEGER,
+	instructor	VARCHAR(30) REFERENCES users.professors(instructor),
 	TA			VARCHAR(30) DEFAULT NULL,
 	description	VARCHAR(200)
 );
 
-INSERT INTO users.courses VALUES(59500,'Computer Science',1050,,'Algorithm Design and Programming 1');
-INSERT INTO users.courses VALUES(59506,'Computer Science',2050,,'Algorithm Design and Programming 2');
-INSERT INTO users.courses VALUES(59510,'Computer Science',2270,,'Introduction to Digital Logic');
-INSERT INTO users.courses VALUES(59509,'Computer Science',2830,,'Introduction to the Internet, WWW and Multimedia Systems');
+INSERT INTO users.courses VALUES(59500,'Computer Science',1050,'Dr. X','Guy1','Algorithm Design and Programming 1');
+--INSERT INTO users.courses VALUES(59506,'Computer Science',2050,'Dr. Y','Guy2','Algorithm Design and Programming 2');
+--INSERT INTO users.courses VALUES(59510,'Computer Science',2270,'Dr. Z','Guy2','Introduction to Digital Logic');
+--INSERT INTO users.courses VALUES(59509,'Computer Science',2830,'Dr. A','Girl1','Introduction to the Internet, WWW and Multimedia Systems');
 
---Table: users.professors
---Columns:
---	username	- The username of the instructor.
---	instructor	- The Instructor's Name.
---	
-CREATE TABLE users.professors(
-	username	VARCHAR(30) NOT NULL REFERENCES users.user_info PRIMARY KEY,
-	instructor	VARCHAR(30) NOT NULL
-);
 
 --Table: users.teaches
 --Columns:
@@ -83,7 +79,7 @@ CREATE TABLE users.professors(
 --	courseID	- The course number of the class
 CREATE TABLE users.teaches(
 	username	VARCHAR (30) NOT NULL REFERENCES users.professors PRIMARY KEY,
-	courseID	INT REFERENCES users.courses
+	courseID	INTEGER REFERENCES users.courses
 );
 
 --Table: users.applications
@@ -100,19 +96,17 @@ CREATE TABLE users.teaches(
 --	isInternational	- Boolean variable to flag if the applicant is international.
 --	GATO			- Boolean variable to flag if the applicant has gone to orientation.
 CREATE TABLE users.applications(
-	appID				SERIAL INT PRIMARY KEY,
+	appID				SERIAL PRIMARY KEY,
 	major				VARCHAR(20) NOT NULL,
 	gradDate			VARCHAR(20) NOT NULL,
 	previous			VARCHAR(50),
 	cur					VARCHAR(50),
-	GPA					INT NOT NULL,
+	GPA					INTEGER NOT NULL,
 	isGrad				BOOLEAN,
 	degree				VARCHAR(20) NOT NULL,
 	Advisor				VARCHAR(30) NOT NULL,
 	isInternational		BOOLEAN,
-	GATO				BOOLEAN,
-	filename 			text,
-	pdf 				bytea
+	GATO				BOOLEAN
 );
 
 --Table: users.internationalapp
@@ -123,7 +117,7 @@ CREATE TABLE users.applications(
 --	ONITA		-Flag for whether the applicant has completed ONITA.
 --	willAttend	-Flag for if they will attend if ONITA is FALSE.
 CREATE TABLE users.internationalapp(
-	appID		INT REFERENCES users.applications,
+	appID		INTEGER REFERENCES users.applications,
 	SPEAK		BOOLEAN,
 	SPEAKdate	VARCHAR(15),
 	ONITA		BOOLEAN,
@@ -137,9 +131,9 @@ CREATE TABLE users.internationalapp(
 --	course		-the course that they are applying for.
 --	status		-The status of the application.
 CREATE TABLE users.applied(
-	appID 		INT REFERENCES users.application PRIMARY KEY,
+	appID 		INTEGER REFERENCES users.applications PRIMARY KEY,
 	username	VARCHAR(30) NOT NULL REFERENCES users.user_info,
-	course		INT REFERENCES users.courses(courseID),
+	course		INTEGER REFERENCES users.courses(courseID),
 	status		VARCHAR(20) NOT NULL
 );
 
@@ -150,9 +144,9 @@ CREATE TABLE users.applied(
 --	course		-the course they want to TA
 --	grade		-The grade they received in the course noted above.
 CREATE TABLE users.applicantWants(
-	ID 			SERIAL INT PRIMARY KEY,
+	ID 			SERIAL PRIMARY KEY,
 	username	VARCHAR(30) NOT NULL REFERENCES users.user_info,
-	course		INT REFERENCES users.courses(courseID),
+	course		INTEGER REFERENCES users.courses(courseID),
 	grade		VARCHAR(2) NOT NULL
 );
 
