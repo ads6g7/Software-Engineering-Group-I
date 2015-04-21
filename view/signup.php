@@ -1,0 +1,202 @@
+<!--
+Sign Up Application Form
+TA/PLA Application Project
+Group I
+CS4320
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="../../assets/ico/favicon.ico">
+
+    <title>Shannon Hall Final Project</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="http://babbage.cs.missouri.edu/~skhhdc/cs2830/finalProject/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap theme -->
+    <link href="http://babbage.cs.missouri.edu/~skhhdc/cs2830/finalProject/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="theme.css" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy this line! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+	
+	<?php
+	$today = date("Y-m-d");
+	$date = "2015-04-25";
+	
+	if (strtotime($date) < strtotime($today))
+	{
+		echo "<div class=\"container\">
+    <div class=\"row\">
+		<div class=\"col-md-4 col-md-offset-4\">
+    		<div class=\"panel panel-default\">
+			  	<div class=\"panel-heading\">
+			    	<div class="alert alert-danger" role="alert">
+                      <span aria-hidden="true"></span>
+                      <span class="sr-only"> Error:</span>✘ Time Window Closed
+</div>
+			    	
+  </head>
+
+  <body role="document">
+
+    <!-- Fixed navbar -->
+<div class="navbar navbar-default">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand">Application Form</a>
+          </div>
+          <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li><a href="http://groupi-softwareeng.rhcloud.com/">Home</a></li>
+			  <li class="active"><a href="signup.html">Sign Up</a></li>
+
+        </div>
+      </div>
+
+    <div class="container theme-showcase" role="main">
+
+      <!-- Main jumbotron for a primary marketing message or call to action -->
+      <div class="jumbotron">
+	  <h2>TA/PLA Application</h2></br>
+		<div class="panel panel-info">
+            <div class="panel-heading">
+              <h3 class="panel-title">Directions</h3>
+            </div>
+            <div class="panel-body">
+              Please be sure to fill out all required entities in the form below</br>
+            </div>
+          </div>
+
+          <h2>Questions:</h2>
+
+  		<form>
+      <table style="width=80%">
+      <tr>
+      <td>
+    		Name:<br>
+    		<input type="text" name="name" placeholder="Name" ><br>
+      </td>
+      <td>
+    		Student Email:<br>
+    		<input type="text" name="mail" placeholder="Your Email Address"><br>
+      </td>
+      <td>
+    		Phone:<br>
+    		<input type="text" name="phone" placeholder="Your Phone Number"><br>
+      </td>
+	  <td>
+    		Student ID:<br>
+    		<input type="text" name="id" placeholder="Ex: 12345678" ><br>
+      </td>
+	  
+    </tr>
+  </table><br>
+  <table style="width=80%">
+  <tr>
+  <td>
+      Previous Position:<br>
+  		<input type="text" name="prev" placeholder="Previous Position"><br>
+    </td>
+    <td>
+
+      Current Position:<br>
+  		<input type="text" name="curr" placeholder="Current Position"><br>
+    </td>
+    <td>
+      Wanted Position:<br>
+  		<input type="text" name="want" placeholder="Wanted Position"><br>
+    </td>
+  </tr>
+</table><br>
+<div id="myDiv">
+<select multiple id="select">
+<option value="test1" onclick="myFunction(this.value)">test1</option>
+<option value="test2" onclick="myFunction(this.value)">test2</option>
+<option value="test3" onclick="myFunction(this.value)">test3</option>
+</select>
+<!-- Rough code for entering grades-->
+<script>
+function myFunction(val)
+{
+	if (document.getElementById(val))
+	{
+		var remove=document.getElementById(val)
+		var myDiv=document.getElementById("myDiv");
+		myDiv.removeChild(remove);
+	}
+	else
+	{
+	var myDiv=document.getElementById("myDiv");
+	var mySelect=document.getElementById("select");
+	var val=mySelect.options[mySelect.selectedIndex].value;
+	var label=document.createElement("label");
+	label.appendChild(document.createTextNode("Enter grade for " +val +": "));
+	label.id=val;
+	var option = document.createElement("input");
+	option.type="text";
+	option.id=val;
+	label.appendChild(option);
+	myDiv.appendChild(label);
+	}
+}
+</script>	
+</div>	
+
+      GPA:<br>
+      <input type="text" name="gpa" placeholder="GPA"><br>
+	  
+	  Anticipated Grad. Date:<br>
+      <input type="text" name="gradDate" placeholder="Ex: Fall 2016" ><br>
+
+      Advisor:<br>
+      <input type="text" name="advisor" placeholder="Advisor's Full Name"><br>
+      Degree Type:<br>
+      <input type="text" name="degreetype" placeholder="Degree Type"><br><br>
+
+      Graduate Student:<br>
+      <input type="radio" name="gradstudent" value="true">Graduate<br>
+      <input type="radio" name="gradstudent" value="false">Undergraduate<br><br>
+      <input type="checkbox" name="international" value="Applies"/> International Applicant: <br><br>
+
+  		<input type="submit" value="Send">
+  		<input type="reset" value="Reset">
+  		</form>
+  		</br>
+      </div>
+
+      <div class="well">
+        <p><center><small>Shannon Hall || skhhdc@mail.missouri.edu || (816) 876-6507</small></center></p>
+      </div>
+
+
+    </div> <!-- /container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="http://babbage.cs.missouri.edu/~skhhdc/cs2830/finalProject/dist/js/bootstrap.min.js"></script>
+  </body>
+</html>
