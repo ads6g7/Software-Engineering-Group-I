@@ -24,6 +24,15 @@ CS4320
 
     <!-- Custom styles for this template -->
     <link href="theme.css" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy this line! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
 	
 	<?php
 	$today = date("Y-m-d");
@@ -31,14 +40,14 @@ CS4320
 	
 	if (strtotime($date) < strtotime($today)) {
 		echo "<div class=\"container\">
-    <div class=\"row\">
-		<div class=\"col-md-4 col-md-offset-4\">
+			<div class=\"row\">
+			<div class=\"col-md-4 col-md-offset-4\">
     		<div class=\"panel panel-default\">
-			  	<div class=\"panel-heading\">
-
-			    	<h3 class=\"panel-title\">Time window closed</h3>";
+		  	<div class=\"panel-heading\">
+			<h3 class=\"panel-title\">Time window closed</h3>";
 		exit;
-	}    	
+	}    
+	?>
   </head>
 
   <body role="document">
@@ -57,9 +66,7 @@ CS4320
           </div>
           <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-			
-			<!--fixed link, was the wrong link originally-->
-			 <li><a href="http://groupi-softwareeng.rhcloud.com/applicationdashboard.html">Home</a></li>
+              <li><a href="http://groupi-softwareeng.rhcloud.com/">Home</a></li>
 			  <li class="active"><a href="signup.html">Sign Up</a></li>
 
         </div>
