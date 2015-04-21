@@ -19,7 +19,26 @@
 
     <!-- Custom styles for this template -->
     <link href="signin.css" rel="stylesheet">
+<!-- Fixed navbar -->
+<div class="navbar navbar-default">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand">Application Form</a>
+          </div>
+          <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li><a href="http://groupi-softwareeng.rhcloud.com/applicantdashboard.html">Home</a></li>
+			  <li class="active"><a href="http://groupi-softwareeng.rhcloud.com/applicantdashboard.html#">Sign Up</a></li>
 
+        </div>
+      </div>
+      
 	<?php
 	$today = date("Y-m-d");
 	$date = "2015-04-25";
