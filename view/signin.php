@@ -53,7 +53,7 @@
                       <span aria-hidden="true"></span>
                       <span class="sr-only"> Error:</span>✘ Time Window Closed
 </div>
-  
+  ";?>
 
   </head>
 
