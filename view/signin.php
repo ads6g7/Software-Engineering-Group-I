@@ -21,6 +21,8 @@
     <link href="signin.css" rel="stylesheet">
 
 	<?php
+	$conn = pg_connect("host=127.4.136.130:5432 dbname=groupi user=adminup8hec1 password=evnEWGkla84u") or die("Could not connect: ".pg_last_error());
+
 	$today = date("Y-m-d");
 	$date = "2015-04-25";
 	
@@ -34,6 +36,25 @@
 			    	<h3 class=\"panel-title\">Time window closed</h3>";
 		exit;
 	}
+	/* Code for "registering" users, however I can't currently get into DB so just putting this here now.
+	if($_POST['action']=='Register'){
+	
+		$usr = $_POST['user'];
+		$pwd = $_POST['password'];
+		$conf_pass = $_POST['repassword'];
+
+		//check if passwords are same
+		if($pwd != $conf_pass)
+			die ('Passwords do not match');
+		if($usr == NULL || $pwd == NULL)
+			die('All fields required');
+	
+		//hash and salt password
+		$salt = random();
+		$pwSalt = $salt.$pwd;
+		$hash = sha1($pwSalt);
+	
+	}*////////////
 	?>
   
 
@@ -49,7 +70,7 @@
 			    	<h3 class="panel-title">Please sign in</h3>
 			 	</div>
 			  	<div class="panel-body">
-			    	<form accept-charset="UTF-8" role="form">
+			    	<form medthod="POST" accept-charset="UTF-8" role="form">
                     <fieldset>
 			    	  	<div class="form-group">
 			    		    <input class="form-control" placeholder="User" name="user" type="text">
@@ -70,7 +91,7 @@
 			    			<input class="form-control" placeholder="Password" name="password" type="password" value="">
 			    		</div>
 			    		<div class="form-group">
-			    			<input class="form-control" placeholder="Re-Password" name="password" type="password" value="">
+			    			<input class="form-control" placeholder="Re-Password" name="re-password" type="password" value="">
 			    		</div>
 			    		<input class="btn btn-lg btn-info btn-block" type="submit" value="Register">
 			    	</fieldset>
