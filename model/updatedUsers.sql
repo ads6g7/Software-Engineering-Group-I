@@ -37,6 +37,18 @@ INSERT INTO users.user_info VALUES('test1', 't1', 'tester1', 'test1@test.com', '
 INSERT INTO users.user_info VALUES('test2', 't2', 'tester2', 'test2@test.com', '012-345-6789', default, 6, 'n/a');
 INSERT INTO users.user_info VALUES('x', 'man', 'X', 'drx@test.com', '573-111-1111', default, default, 'n/a');
 
+-- Table: users.authentication
+-- Columns:
+--    username      - The username tied to the authentication info.
+--    password_hash - The hash of the user's password + salt. Expected to be SHA1.
+--    salt          - The salt to use. Expected to be a SHA1 hash of a random input.
+CREATE TABLE users.authentication (
+	username 	VARCHAR(30) PRIMARY KEY,
+	password_hash 	CHAR(40) NOT NULL,
+	salt 		CHAR(40) NOT NULL,
+	FOREIGN KEY (username) REFERENCES users.user_info(username)
+);
+
 --Table: users.professors
 --Columns:
 --	username	- The username of the instructor.
@@ -97,6 +109,7 @@ INSERT INTO users.teaches VALUES('x', 1050);
 CREATE TABLE users.applications(
 	--appID				SERIAL PRIMARY KEY,
 	username			VARCHAR(30) NOT NULL REFERENCES users.user_info PRIMARY KEY,
+	sudentID			INTEGER NOT NULL,
 	major				VARCHAR(20) NOT NULL,
 	gradDate			VARCHAR(20) NOT NULL,
 	previous			VARCHAR(50),
@@ -111,10 +124,10 @@ CREATE TABLE users.applications(
 	pdf 				bytea
 );
 
-INSERT INTO users.applications VALUES('test1', 'computer science', 'spring 2015', 
+INSERT INTO users.applications VALUES('test1', 12345678, 'computer science', 'spring 2015', 
 	'CMP_SC 1040', 'CMP_SC 1040', '3.5', false, 'Bachelors', 'Adrianna Wheeler', false,
 	false);
-INSERT INTO users.applications VALUES('test2', 'computer science', 'spring 2015', 
+INSERT INTO users.applications VALUES('test2', 23456789, 'computer science', 'spring 2015', 
 	'CMP_SC 1050', 'CMP_SC 1050', '3.6', true, 'Masters', 'Adrianna Wheeler', true,
 	true);
 	
