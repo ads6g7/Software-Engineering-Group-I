@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <!-- Sign In from template, Ben Woolridge, Shannon Hall -->
   <head>
@@ -39,9 +40,70 @@
         </div>
       </div>
       
-	<?php
+<?php
+	$conn = pg_connect("host=/var/lib/openshift/5527ddbb5973cacee00000e9/postgresql/socket/ dbname=groupi user=adminup8hecl password=evnEWGkla94u") or die('Could not connect: ' . pg_last_error());
 	$today = date("Y-m-d");
 	$date = "2015-04-25";
+	
+	function random()
+	{
+	 $size = 20;
+	 $charset = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*';
+     $randStr = '';
+	
+	  for($i=0; $i < $size; $i++)
+		{
+	   	$randStr .= $charset[rand(0, strlen($charset)-1)];
+		}
+	   return $randStr;
+	}
+	if($_POST['action']=="Register")
+	{
+		$usr = $_POST['username'];
+		$pwd = $_POST['password'];
+		$conf_pass = $_POST['confirm-password'];
+
+		//check if passwords are same
+		if($pwd != $conf_pass)
+			die ('Passwords do not match');
+		if($usr == NULL || $pwd == NULL)
+			die('All fields required');
+	
+		//hash and salt password
+		$salt = random();
+		$pwSalt = $salt.$pwd;
+		$hash = sha1($pwSalt);
+
+		//insert into authentication table
+		$q2 = 'INSERT INTO users.authentication (username, password_hash, salt)
+			VALUES ($usr, $hash, $salt)';
+		
+		//prepare
+		$result2 = pg_prepare($conn, 'auth', $q2);
+		
+		//check for error
+		if(!$result2)
+			die('Error pg_prepare:'.pg_last_error());
+		
+		//execute
+		$result2 = pg_execute($conn, 'auth', array($usr, $hash, $salt));
+		
+		//check for error
+		if(!$result2)
+			die('Error pg_execute:'.pg_last_error());
+
+		
+		//set session vars
+		$_SESSION['user'] = $usr;
+		$_SESSION['loggedin'] = true;
+		
+		//go to home page
+	
+	}
+	if($_SESSION['loggedin'])
+		header('location: http://groupi-softwareeng.rhcloud.com/applicantdashboard.html');
+  
+  }
 	
 	if (strtotime($date) < strtotime($today)) {
 		echo "<div class=\"container\">
@@ -54,6 +116,7 @@
             <span class=\"sr-only\"> Error:</span>✘ Time Window Closed</div>";
 			exit;
 	}
+	
 	?>
 
   </head>
@@ -68,7 +131,7 @@
 			    	<h3 class="panel-title">Please sign in</h3>
 			 	</div>
 			  	<div class="panel-body">
-			    	<form accept-charset="UTF-8" role="form">
+			    	<form method= "POST" accept-charset="UTF-8" role="form">
                     <fieldset>
 			    	  	<div class="form-group">
 			    		    <input class="form-control" placeholder="User" name="user" type="text">
@@ -77,7 +140,9 @@
 			    			<input class="form-control" placeholder="Password" name="password" type="password" value="">
 			    		</div>
 			    		<input class="btn btn-lg btn-success btn-block" type="submit" value="Login"><br>
-			    					    	  	<div class="form-group">
+			    	
+						<div class="form-group">
+					
 			    		    <input class="form-control" placeholder="User" name="user" type="text">
 			    		</div>
 			    		<div class="form-group">
