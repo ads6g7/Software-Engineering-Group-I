@@ -51,33 +51,54 @@
           </div>
           <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-        <li class="active"><a href="http://groupi-softwareeng.rhcloud.com/teacherdashboard.html">Home</a></li>
-	<li ><a href="#"><span ></span>Logout</a></li>
+              <li><a href="http://groupi-softwareeng.rhcloud.com/admindashboard.html">Home</a></li>
+              <li class="active"><a href="http://groupi-softwareeng.rhcloud.com/pendingapps.php">Pending Apps</a></li>
+
         </div>
       </div>
-      
+
 		<div class="container theme-showcase" role="main">
 
       <!-- Main jumbotron for a primary marketing message or call to action -->
       <div class="jumbotron">
-	  		<div class="panel panel-info">
-            <div class="panel-heading">
-              <h3 class="panel-title">Welcome Back!</h3>
-            </div>
-            <div class="panel-body">
-              From this page you can search for submitted applications and decide whether or not to approve them to the Administrator</br>
-            </div>
-          </div>
-		  <br>
 
-  <div class="col-lg-6">
-    <div class="input-group">
-      <input type="text" class="form-control" placeholder="Search Applying Student's Name">
-      <span class="input-group-btn">
-        <button class="btn btn-default" type="button">Search</button>
-      </span>
-    </div><!-- /input-group -->
-  </div><!-- /.col-lg-6 -->
+
+  <div class="panel panel-default">
+  <!-- Default panel contents -->
+  <div class="panel-heading">Pending Applications</div>
+
+  <table class="table">
+      <thead>
+          <tr>
+            <th>#</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Username</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td>Shannon</td>
+            <td>Hall</td>
+            <td>skhhdc</td>
+          </tr>
+          <tr>
+            <th scope="row">2</th>
+            <td>Jacob</td>
+            <td>Terry</td>
+            <td>jthz74</td>
+          </tr>
+          <tr>
+            <th scope="row">3</th>
+            <td>Larry</td>
+            <td>Smith</td>
+            <td>layyv9</td>
+          </tr>
+        </tbody>
+  </table>
+</div>
+
 </div><!-- /.row -->
 
 
