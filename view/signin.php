@@ -63,7 +63,7 @@
 			    		</div>
 			    		<input class="btn btn-lg btn-success btn-block" type="submit" value="Login"><br>
 						<div>
-						 Don't have an account?  <a href="#">Register Here</a>
+						 Don't have an account?  <a href="https://groupi-softwareeng.rhcloud.com/registration.php">Register Here</a>
 						</div>
 			    	</fieldset>
 			      	</form>
