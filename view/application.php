@@ -53,7 +53,71 @@ CS4320
 	
   </head>
 
-  <body role="document">
+  <body role="document" onload="classArray()>
+
+<script>
+<!--Figured we'd pull from database, but for now using this. Also got rid of grades JS, too sloppy/unreliable-->
+var classes=["CMP_SC 1000: Introduction to Computer Science",
+"CMP_SC 1001: Topics in Computer Science",
+"CMP_SC 1050: Algorithm Design and Programming I",
+"CMP_SC 2001: Topics in Computer Science",
+"CMP_SC 2050: Algorithm Design and Programming II",
+"CMP_SC 2111: Production Languages",
+"CMP_SC 2270: Introduction to Digital Logic",
+"CMP_SC 2830: Introduction to the Internet, WWW and Multimedia Systems",
+"CMP_SC 3001: Topics in Computer Science",
+"CMP_SC 3050: Advanced Algorithm Design",
+"CMP_SC 3280: Computer Organization and Assembly Language",
+"CMP_SC 3330: Object Oriented Programming",
+"CMP_SC 3380: Database Applications and Information Systems",
+"CMP_SC 3530: UNIX Operating System",
+"CMP_SC 3940: Internship in Computer Science",
+"CMP_SC 4001: Topics in Computer Science",
+"CMP_SC 4050: Design and Analysis of Algorithms I",
+"CMP_SC 4060: String Algorithms",
+"CMP_SC 4070: Numerical Methods for Science and Engineering",
+"CMP_SC 4085: Problems in Computer Science",
+"CMP_SC 4270: Computer Architecture I",
+"CMP_SC 4280: Network Systems Architecture",
+"CMP_SC 4320: Software Engineering I",
+"CMP_SC 4330: Object Oriented Design I",
+"CMP_SC 4380: Database Management Systems I",
+"CMP_SC 4410: Theory of Computation I",
+"CMP_SC 4430: Compilers I",
+"CMP_SC 4440: Malware Analysis and Defense",
+"CMP_SC 4450: Principles of Programming Languages",
+"CMP_SC 4520: Operating Systems I",
+"CMP_SC 4610: Computer Graphics I",
+"CMP_SC 4620: Physically Based Modeling and Animation",
+"CMP_SC 4650: Digital Image Processing",
+"CMP_SC 4670: Digital Image Compression",
+"CMP_SC 4720: Introduction to Machine Learning and Pattern Recognition",
+"CMP_SC 4730: Building Intelligent Robots",
+"CMP_SC 4740: Interdisciplinary Introduction to NLP",
+"CMP_SC 4750: Artificial Intelligence I",
+"CMP_SC 4770: Introduction to Computational Intelligence",
+"CMP_SC 4830: Science and Engineering of the World Wide Web",
+"CMP_SC 4850: Computer Networks I",
+"CMP_SC 4860: Network Security",
+"CMP_SC 4870: Wireless and Mobile Networks",
+"CMP_SC 4970: Senior Capstone Design I",
+"CMP_SC 4980: Senior Capstone Design II",
+"CMP_SC 4990: Undergraduate Research in Computer Science",
+"CMP_SC 4995: Undergraduate Research in Computer Science - Honors"];
+function classArray()
+{
+	var select=document.getElementById("select");
+	for (var i=0; i<classes.length; i++)
+	{
+		var opt=document.createElement("option");
+		opt.innerHTML=classes[i];
+		opt.value=classes[i];
+		opt.onclick="myFunction(this.value)";
+		select.appendChild(opt);
+	}
+}
+</script>
+
 
     <!-- Fixed navbar -->
 <div class="navbar navbar-default">
@@ -92,50 +156,24 @@ CS4320
           <h2>Questions:</h2>
 
   		<form>
-      <table style="width=80%">
-      <tr>
-      <td>
-    		Name:<br>
-    		<input type="text" name="name" placeholder="Name" ><br>
-      </td>
-      <td>
-    		Student Email:<br>
-    		<input type="text" name="mail" placeholder="Your Email Address"><br>
-      </td>
-      <td>
-    		Phone:<br>
-    		<input type="text" name="phone" placeholder="Your Phone Number"><br>
-      </td>
-	  <td>
+
     		Student ID:<br>
-    		<input type="text" name="id" placeholder="Ex: 12345678" ><br>
-      </td>
-	  
-    </tr>
-  </table><br>
-  <table style="width=80%">
-  <tr>
-  <td>
+    		<input type="text" name="id" placeholder="Ex: 12345678" ><br><br>
+
       Previous Position:<br>
   		<input type="text" name="prev" placeholder="Previous Position"><br>
-    </td>
-    <td>
 
       Current Position:<br>
   		<input type="text" name="curr" placeholder="Current Position"><br>
-    </td>
-    <td>
+
       Wanted Position:<br>
-  		<input type="text" name="want" placeholder="Wanted Position"><br>
-    </td>
-  </tr>
-</table><br>
-<div id="myDiv">
+  		<input type="text" name="want" placeholder="Wanted Position"><br><br>
+
+<div>
 <select multiple id="select">
-<option value="test1" onclick="myFunction(this.value)">test1</option>
-<option value="test2" onclick="myFunction(this.value)">test2</option>
-<option value="test3" onclick="myFunction(this.value)">test3</option>
-</select>
+</select><br>
+</body>
+
 <!-- Rough code for entering grades-->
 <script>
 function myFunction(val)
@@ -187,7 +225,7 @@ function myFunction(val)
       </div>
 
       <div class="well">
-        <p><center><small>Shannon Hall || skhhdc@mail.missouri.edu || (816) 876-6507</small></center></p>
+        <p><center><small>Group I</small></center></p>
       </div>
 
 
