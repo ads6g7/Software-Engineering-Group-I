@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/cjbq4f
 <!DOCTYPE html>
 <html lang="en">
 <!-- Sign In from template, Ben Woolridge, Shannon Hall -->
@@ -33,7 +29,6 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-<<<<<<< HEAD
             <a class="navbar-brand">Sign In</a>
           </div>
           <div class="navbar-collapse collapse">
@@ -44,7 +39,6 @@
         </div>
       </div>
  </div>   
-=======
             <a class="navbar-brand">Application Form</a>
           </div>
           <div class="navbar-collapse collapse">
@@ -71,7 +65,6 @@
 			exit;
 	}
 	?>
->>>>>>> origin/cjbq4f
 
   </head>
 
@@ -85,27 +78,22 @@
 			    	<h3 class="panel-title">Please sign in</h3>
 			 	</div>
 			  	<div class="panel-body">
-<<<<<<< HEAD
 			    	<form method= "POST" action="http://groupi-softwareeng.rhcloud.com/applicantdashboard.html" accept-charset="UTF-8" role="form">
                     <fieldset>
 			    	  	<div class="form-group">
 			    		    <input class="form-control" placeholder="User" name="username" type="text">
-=======
 			    	<form accept-charset="UTF-8" role="form">
                     <fieldset>
 			    	  	<div class="form-group">
 			    		    <input class="form-control" placeholder="User" name="user" type="text">
->>>>>>> origin/cjbq4f
 			    		</div>
 			    		<div class="form-group">
 			    			<input class="form-control" placeholder="Password" name="password" type="password" value="">
 			    		</div>
-<<<<<<< HEAD
 			    		<input class="btn btn-lg btn-success btn-block" type="submit" value="Login"><br>
 						<div>
 						 Don't have an account?  <a href="https://groupi-softwareeng.rhcloud.com/registration.php">Register Here</a>
 						</div>
-=======
 						<div>
 			    		<input class="btn btn-lg btn-success btn-block" type="submit" value="Login"><br>
 			    					    	  	<div class="form-group">
@@ -119,7 +107,6 @@
 			    			<input class="form-control" placeholder="Re-Password" name="password" type="password" value="">
 			    		</div>
 			    		<input class="btn btn-lg btn-info btn-block" type="submit" value="Register">
->>>>>>> origin/cjbq4f
 			    	</fieldset>
 			      	</form>
 			    </div>
@@ -130,8 +117,6 @@
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
-<<<<<<< HEAD
-
 
 
   </body>
@@ -200,7 +185,5 @@ if(isset($_POST['submit']=="Login"))
 /*Test info is benTest--joker123*/
 	
 ?>	
-=======
   </body>
 </html>
->>>>>>> origin/cjbq4f
