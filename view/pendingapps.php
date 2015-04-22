@@ -51,8 +51,8 @@
           </div>
           <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-              <li><a href="http://groupi-softwareeng.rhcloud.com/applicantdashboard.html">Home</a></li>
-              <li class="active"><a href="http://groupi-softwareeng.rhcloud.com/applicantdashboard.html">Pending Apps</a></li>
+              <li><a href="http://groupi-softwareeng.rhcloud.com/admindashboard.html">Home</a></li>
+              <li class="active"><a href="http://groupi-softwareeng.rhcloud.com/pendingapps.php">Pending Apps</a></li>
 
         </div>
       </div>
