@@ -218,8 +218,8 @@ function myFunction(val)
       <input type="radio" name="gradstudent" value="true">Graduate<br>
       <input type="radio" name="gradstudent" value="false">Undergraduate<br><br>
 	  <input type="checkbox" name="gato" value="false"/> International Applicant: <br>
-      <input type="checkbox" name="international" value="false"/> Completed GATO: <br>
-	  <input type="checkbox" name="international" value="false"/> Will complete GATO: <br><br>
+      <input type="radio" name="gato" value="false"/> Completed GATO: <br>
+	  <input type="radio" name="gato" value="true"/> Will complete GATO: <br><br>
 		<br>
 			Select PDF to upload for resume:
 		<input type="file" name="fileToUpload" id="fileToUpload" required>
