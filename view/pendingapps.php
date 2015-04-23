@@ -71,6 +71,7 @@
       <thead>
           <tr>
             <th>#</th>
+            <th>Delete</th>
             <th>First Name</th>
             <th>Last Name</th>
             <th>Username</th>
@@ -81,6 +82,7 @@
         <tbody>
           <tr>
             <th scope="row">1</th>
+            <td><button type="button" class="btn btn-danger">✘</button></td>
             <td>Shannon</td>
             <td>Hall</td>
             <td>skhhdc</td>
@@ -89,6 +91,7 @@
             </tr>
             <tr>
             <th scope="row">2</th>
+            <td><button type="button" class="btn btn-danger">✘</button></td>
             <td>Jacob</td>
             <td>Terry</td>
             <td>jthz74</td>
@@ -97,6 +100,7 @@
           </tr>
           <tr>
             <th scope="row">3</th>
+            <td><button type="button" class="btn btn-danger">✘</button></td>
             <td>Larry</td>
             <td>Smith</td>
             <td>layyv9</td>
