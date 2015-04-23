@@ -69,30 +69,120 @@
             </div>
           </div>
 		  <br>
-
+<center>
   <div class="col-lg-6">
     <div class="input-group">
+      <form method= "POST" action= "lab4.php">
+        <div>
 
-      <div>
-
-        <input type= "radio" name= "choices" id= "country" value= "1" checked>
-        <label for= "country"> Country </label>
-        <!--Radio button 1 (country) checked by default-->
-        <input type= "radio" name= "choices" id= "city" value= "2">
-        <label for= "city"> City </label>
-
-        <input type= "radio" name= "choices" id= "language" value= "3">
-        <label for= "language"> Language </label>
-        <!--HTML radio buttons for selecting what to search for
-        Corresponding values: (1) country (2) city (3) language
-        -->
-      </div>
-
-
+          <input type= "radio" name= "username" id= "username" value= "1" checked>
+          <label for= "username"> Username </label>
+          <!--Radio button 1 (username) checked by default-->
+          <input type= "radio" name= "course" id= "course" value= "2">
+          <label for= "course"> Course </label>
+          <!--HTML radio buttons for selecting what to search for
+          Corresponding values: (1) username (2) course
+          -->
+        </div>
       <input type="text" class="form-control" placeholder="Search Applying Student's Name">
       <span class="input-group-btn">
         <button class="btn btn-default" type="button">Search</button>
       </span>
+    </form>
+</center>
+
+  <?php
+
+    $dbconn = pg_connect("host=dbhost-pgsql.cs.missouri.edu dbname=skhhdc user=skhhdc password=VP3RdwLt")
+    //attempt to connect to database
+    or die("Error - could not connect to database: " . pg_last_error());
+    //display error if connection is unsuccessful
+
+    $choice = $_POST['choices'];
+    $inpcode = $_POST['begin'];
+
+    if(isset($_POST['submit'])) {
+      switch($choice) {
+      case 1:
+      //username lookup
+        $inpcode = $inpcode ."%";
+        $outcome = pg_prepare($dbconn, "user_lookup", 'SELECT * FROM users.applications WHERE username = $1');
+        //sql for retrieving username code key
+        $username = htmlspecialchars($_POST['username']);
+        $outcome = pg_execute($dbconn, "user_lookup", array($username));
+         echo "<hr /><br/># of row: " . $temp . " rows." ."<br />";
+        //output number of rows
+        echo "<br/><table border=\"2\">";
+        echo "<tr>";
+        echo "<th> Actions</th>" . "\n";
+        echo "<th> country_code</th>";
+        echo "<th> name</th>";
+        echo "<th> continent</th>";
+        echo "<th> region</th>";
+        echo "</tr>";
+        $holder;
+        $temp = 0;
+        //Output columns
+
+      while($holder = pg_fetch_all($outcome)) {
+      //fetch all rows from the outcome
+        echo "<tr>";
+        echo "<td>" . htmlspecialchars($holder['username']) . "</td>";
+        echo "<td>" . htmlspecialchars($holder['studentID']) . "</td>";
+        echo "<td>" . htmlspecialchars($holder['major']) . "</td>";
+        echo "<td>" . htmlspecialchars($holder['gradDate']) . "</td>";
+        echo "<td>" . htmlspecialchars($holder['previous']) . "</td>";
+        echo "<td>" . htmlspecialchars($holder['cur']) . "</td>";
+        echo "<td>" . htmlspecialchars($holder['GPA']) . "</td>";
+        echo "<td>" . htmlspecialchars($holder['isGrad']) . "</td>";
+        echo "<td>" . htmlspecialchars($holder['degree']) . "</td>";
+        echo "<td>" . htmlspecialchars($holder['Advisor']) . "</td>";
+        echo "<td>" . htmlspecialchars($holder['isAdvisor']) . "</td>";
+        echo "<td>" . htmlspecialchars($holder['GATO']) . "</td>";
+        echo "<td>" . htmlspecialchars($holder['filename']) . "</td>";
+        echo "<td>" . htmlspecialchars($holder['pdf']) . "</td>";
+        echo "</tr>";
+        $temp++;
+        //move ahead & output extracted info from database
+      }
+        echo "</table>";
+        break;
+
+      case 2:
+      //course lookup
+        $inpcode = $inpcode ."%";
+        $outcome = pg_prepare($dbconn, "city_lookup", 'SELECT * FROM lab4.city WHERE name = $1');
+        $outcome = pg_execute($dbconn, "city_lookup", array($inpcode));
+        echo "<hr /><br/>There were " . $temp . " rows." ."<br />";
+        echo "<br/><table border=\"2\">";
+        echo "<tr>";
+        echo "<th> Actions</th>" . "\n";
+        echo "<th> country_code</th>";
+        echo "<th> name</th>";
+        echo "<th> continent</th>";
+        echo "<th> region</th>";
+        echo "</tr>";
+        $holder;
+        $temp = 0;
+
+      while($holder = pg_fetch_all($outcome))
+      {
+        echo "<tr>";
+        echo "<td>" . htmlspecialchars($holder['country_code']) . "</td>";
+        echo "<td>" . htmlspecialchars($holder['country_code']) . "</td>";
+        echo "<td>" . htmlspecialchars($holder['name']) . "</td>";
+        echo "<td>" . htmlspecialchars($holder['continent']) . "</td>";
+        echo "<td>" . htmlspecialchars($holder['region']) . "</td>";
+        echo "<td>" . htmlspecialchars($holder['surface_area']) . "</td>";
+        echo "<td>" . htmlspecialchars($holder['indep_year']) . "</td>";
+        echo "<td>" . htmlspecialchars($holder['population']) . "</td>";
+        echo "</tr>";
+        $temp++;
+      }
+        echo "</table>";
+        break;
+      }
+  ?>
     </div><!-- /input-group -->
   </div><!-- /.col-lg-6 -->
 </div><!-- /.row -->
