@@ -1,11 +1,13 @@
 <?php
-
+	
 	// Here we are using sessions to propagate the login
 	if(!session_start()) {
 		// If the session couldn't start, present an error
 		header("Location: error.php");
 		exit;
 	}
+	$dbhost = "host=/var/lib/openshift/5527ddbb5973cacee00000e9/postgresql/socket/";
+	$dbuser = ""
 	
 	$dbconn = pg_connect("host=/var/lib/openshift/5527ddbb5973cacee00000e9/postgresql/socket/ 
 		dbname=groupi 
@@ -27,7 +29,7 @@
 	}
 	
 	
-	$action = empty($_POST['action']) ? '' : $_POST['action'];
+	$action = empty($_POST['action']) ? '' : $_POST['action']; //looks at the form action. We have a hidden element with action do_login
 	
 	if ($action == 'do_login') {
 		handle_login();
@@ -39,6 +41,11 @@
 	function handle_login() {
 		$username = empty($_POST['username']) ? '' : $_POST['username'];
 		$password = empty($_POST['password']) ? '' : $_POST['password'];
+		$failedQuery = "Failed check query";
+		// Check for professor login
+		$query = "SELECT username FROM users.professors WHERE username = $username";
+		$result = pg_query($dbconn, $query) or die($failedQuery . pg_last_error());
+		while()
 	
 		if ($username == "admin" && $password == "admin") {
 			// Instead of setting a cookie, we'll set a key/value pair in $_SESSION
@@ -47,14 +54,15 @@
 			exit;
 		} else {
 			$error = 'Login failed.  Please enter your username and password.';
-			//require "login_form.php";
+			require "signin.php";
 		}		
 	}
 	
 	function login_form() {
 		$username = "";
 		$error = "";
-		//require "login_form.php";
+		require "signin.php";
 	}
+	pg_close($dbconn);
 	
 ?>
