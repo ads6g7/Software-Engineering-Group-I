@@ -53,7 +53,8 @@
 			    	<h3 class="panel-title">Please sign in</h3>
 			 	</div>
 			  	<div class="panel-body">
-			    	<form method= "POST" action="http://groupi-softwareeng.rhcloud.com/applicantdashboard.html" accept-charset="UTF-8" role="form">
+			    	<form method= "POST" action="http://groupi-softwareeng.rhcloud.com/login.php" accept-charset="UTF-8" role="form">
+                        <input type="hidden" name="action" value="do_login">
                     <fieldset>
 			    	  	<div class="form-group">
 			    		    <input class="form-control" placeholder="User" name="username" type="text">
