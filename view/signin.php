@@ -78,7 +78,8 @@
 			    	<h3 class="panel-title">Please sign in</h3>
 			 	</div>
 			  	<div class="panel-body">
-			    	<form method= "POST" action="http://groupi-softwareeng.rhcloud.com/applicantdashboard.html" accept-charset="UTF-8" role="form">
+			    	<form method= "POST" action="http://groupi-softwareeng.rhcloud.com/login.php" accept-charset="UTF-8" role="form">
+                    	<input type="hidden" name="action" value="do_login">
                     <fieldset>
 			    	  	<div class="form-group">
 			    		    <input class="form-control" placeholder="User" name="username" type="text">
@@ -94,6 +95,19 @@
 						<div>
 						 Don't have an account?  <a href="https://groupi-softwareeng.rhcloud.com/registration.php">Register Here</a>
 						</div>
+						<div>
+			    		<input class="btn btn-lg btn-success btn-block" type="submit" value="Login"><br>
+			    					    	  	<div class="form-group">
+			    		    <input class="form-control" placeholder="User" name="user" type="text">
+							</div>
+						</div>
+			    		<div class="form-group">
+			    			<input class="form-control" placeholder="Password" name="password" type="password" value="">
+			    		</div>
+			    		<div class="form-group">
+			    			<input class="form-control" placeholder="Re-Password" name="password" type="password" value="">
+			    		</div>
+			    		<input class="btn btn-lg btn-info btn-block" type="submit" value="Register">
 			    	</fieldset>
 			      	</form>
 			    </div>
@@ -106,5 +120,71 @@
     <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
 
 
+  </body>
+</html>
+<?php
+SESSION_START();
+$conn = pg_connect("host=/var/lib/openshift/5527ddbb5973cacee00000e9/postgresql/socket/ dbname=groupi user=adminup8hecl password=evnEWGkla94u") or die('Could not connect to DB ' . pg_last_error());
+/*	
+$_SESSION['loggedin'];
+if(isset($_POST['submit']=="Login"))
+	{
+		#get username and password
+		$un = $_POST['username'];
+		$pw = $_POST['password'];
+		
+		#if input is valid
+		#if(!$un || !$pw)
+		#	die('<br/>Invalid Data ');
+			
+		#protect from SQL injection attack
+		$q = 'SELECT * FROM users.authentication
+				WHERE username = $1';
+		#prepare
+		$result = pg_prepare($conn, 'query', $q);
+		
+		#check for error
+		if(!$result)
+			die('<br/>Error pg_prepare');
+			
+		#execute
+		$result = pg_execute($conn, 'query', array($un));
+		
+		#check for error
+		if(!$result)
+			die('<br/>Error pg_execute');
+			
+		$info = pg_fetch_assoc($result);		
+		if($info == NULL)
+			die('<br/>Incorrect username/password');
+		
+		#salt and hash
+		$salty = trim($info['salt']);
+		$pwHash = sha1($salty.$pw);
+		
+	if($pwHash == $info['password_hash'])
+		{	
+			$_SESSION['username'] = $un;
+			$_SESSION['loggedin'] = true;
+			header('location: http://groupi-softwareeng.rhcloud.com/applicantdashboard.html');
+		}
+		else
+			die('<br/>Incorrect username/password');
+	}
+#	$today = date("Y-m-d");
+#	$date = "2015-04-25";
+#	if (strtotime($date) < strtotime($today)) {
+#		echo "<div class=\"container\">
+#			<div class=\"row\">
+#			<div class=\"col-md-4 col-md-offset-4\">
+ #   		<div class=\"panel panel-default\">
+	#	  	<div class=\"panel-heading\">
+	#	   	<div class=\"alert alert-danger\" role=\"alert\">
+	#		<span aria-hidden=\"true\"></span>
+     #       <span class=\"sr-only\"> Error:</span>✘ Time Window Closed</div>";
+		#	exit;*/
+/*Test info is benTest--joker123*/
+	
+?>	
   </body>
 </html>
