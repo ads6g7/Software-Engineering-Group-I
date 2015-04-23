@@ -3,17 +3,14 @@
 	// Here we are using sessions to propagate the login
 	if(!session_start()) {
 		// If the session couldn't start, present an error
-		header("Location: error.php");
+		header("Location: errorSession.php");
 		exit;
 	}
+
 	$dbhost = "host=/var/lib/openshift/5527ddbb5973cacee00000e9/postgresql/socket/";
-	$dbuser = ""
-	
-	$dbconn = pg_connect("host=/var/lib/openshift/5527ddbb5973cacee00000e9/postgresql/socket/ 
-		dbname=groupi 
-		user=adminup8hecl 
-		password=evnEWGkla94u") 
-		or die('Unable to connect to database' .pg_last_error());
+	$dbuser = "adminup8hec1";
+	$dbpass = "evnEWGkla94u";	
+	$dbconn = pg_connect($dbhost, $dbname, $dbuser, $dbpass) or die('Unable to connect to database' . pg_last_error());
 	
 	// Check to see if the user has already logged in
 	$loggedIn = empty($_SESSION['loggedin']) ? false : $_SESSION['loggedin'];
@@ -43,11 +40,20 @@
 		$password = empty($_POST['password']) ? '' : $_POST['password'];
 		$failedQuery = "Failed check query";
 		// Check for professor login
-		$query = "SELECT username FROM users.professors WHERE username = $username";
-		$result = pg_query($dbconn, $query) or die($failedQuery . pg_last_error());
-		while()
+		$query = "SELECT username FROM users.professors WHERE username = $1";
+		
+		$result = pg_prepare($dbconn, "Check", $query);
+		$found = pg_execute($dbconn, "Check", array($username));
+		if($found == 1)
+		{
+			 
+		}
+		else if()
+
+		/*$result = pg_query($dbconn, $query) or die($failedQuery . pg_last_error());
+		while()*/
 	
-		if ($username == "admin" && $password == "admin") {
+		/*if ($username == "admin" && $password == "admin") {
 			// Instead of setting a cookie, we'll set a key/value pair in $_SESSION
 			$_SESSION['loggedin'] = $username;
 			header("Location: http://groupi-softwareeng.rhcloud.com/applicantdashboard.html");//again, temp redirect to dashboard
@@ -56,6 +62,7 @@
 			$error = 'Login failed.  Please enter your username and password.';
 			require "signin.php";
 		}		
+		*/
 	}
 	
 	function login_form() {

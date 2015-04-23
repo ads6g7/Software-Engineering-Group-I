@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <!-- Sign In from template, Ben Woolridge, Shannon Hall -->
@@ -66,6 +65,19 @@
 						<div>
 						 Don't have an account?  <a href="https://groupi-softwareeng.rhcloud.com/registration.php">Register Here</a>
 						</div>
+						<div>
+			    		<input class="btn btn-lg btn-success btn-block" type="submit" value="Login"><br>
+			    					    	  	<div class="form-group">
+			    		    <input class="form-control" placeholder="User" name="user" type="text">
+							</div>
+						</div>
+			    		<div class="form-group">
+			    			<input class="form-control" placeholder="Password" name="password" type="password" value="">
+			    		</div>
+			    		<div class="form-group">
+			    			<input class="form-control" placeholder="Re-Password" name="password" type="password" value="">
+			    		</div>
+			    		<input class="btn btn-lg btn-info btn-block" type="submit" value="Register">
 			    	</fieldset>
 			      	</form>
 			    </div>
@@ -145,3 +157,5 @@ if(isset($_POST['submit']=="Login"))
 /*Test info is benTest--joker123*/
 	
 ?>	
+  </body>
+</html>
