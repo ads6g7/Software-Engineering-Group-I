@@ -55,7 +55,7 @@
 	<li ><a href="#"><span ></span>Logout</a></li>
         </div>
       </div>
-      
+
 		<div class="container theme-showcase" role="main">
 
       <!-- Main jumbotron for a primary marketing message or call to action -->
@@ -72,6 +72,23 @@
 
   <div class="col-lg-6">
     <div class="input-group">
+
+      <div>
+
+        <input type= "radio" name= "choices" id= "country" value= "1" checked>
+        <label for= "country"> Country </label>
+        <!--Radio button 1 (country) checked by default-->
+        <input type= "radio" name= "choices" id= "city" value= "2">
+        <label for= "city"> City </label>
+
+        <input type= "radio" name= "choices" id= "language" value= "3">
+        <label for= "language"> Language </label>
+        <!--HTML radio buttons for selecting what to search for
+        Corresponding values: (1) country (2) city (3) language
+        -->
+      </div>
+
+
       <input type="text" class="form-control" placeholder="Search Applying Student's Name">
       <span class="input-group-btn">
         <button class="btn btn-default" type="button">Search</button>
