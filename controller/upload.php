@@ -1,4 +1,23 @@
 <?php
+session_start();
+include("../secure/database.php");
+$conn=pg_connect(HOST." ".DBNAME. " ".USERNAME. " ". PASSWORD)
+or die ('Could not connect:' .pg_last_error());
+
+//$username = $_SESSION['username'];
+$username="test";
+$studentID=$_POST['id'];
+$prevPos=$_POST['prev'];
+$currPos=$_POST['curr'];
+$wantPos=$_POST['select[]'];
+$gpa=$_POST['gpa'];
+$gradDate=$_POST['gradDate'];
+$advisor=$_POST['advisor'];
+$degree=$_POST['degreetype'];
+$grad=$_POST['gradstudent'];
+$international=$_POST['international'];
+$major=$_POST['major'];
+$gato=$_POST['gato'];
 
 $target_dir = "cs3380/";
 $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
@@ -31,4 +50,13 @@ if ($uploadOk == 0) {
         echo "Sorry, there was an error uploading your file.";
     }
 }
+
+$result=pg_prepare($conn, 'application','INSERT INTO users.applications VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)') or die ('Prepare count failed: ' .pg_last_error());
+$aliveResult = pg_execute($conn, 'application', array($username, $studentID, $major, $gradDate, $prevPos, $currPos, $gpa, $grad, $degree, $advisor, $international, $gato)) or die ('Execute count failed: '.pg_last_error());
+//get the binary file based on the filename
+$data=file_get_contents('cs3380/testing.pdf');
+//escape the binary data
+$escaped = bin2hex( $data );
+//Insert into database
+pg_query("UPDATE users.applications SET filename='testing', pdf=decode('{$escaped}', 'hex') WHERE username='$username'") or die('Error: '.pg_last_error());
 ?>

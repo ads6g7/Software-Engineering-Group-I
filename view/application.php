@@ -50,10 +50,9 @@ CS4320
 			exit;
 	}
 	?>
-	
   </head>
 
-  <body role="document" onload="classArray()>
+  <body role="document" onload="classArray()">
 
 <script>
 <!--Figured we'd pull from database, but for now using this. Also got rid of grades JS, too sloppy/unreliable-->
@@ -155,23 +154,22 @@ function classArray()
 
           <h2>Questions:</h2>
 
-  		<form>
+  		<form action="upload.php" method="post" enctype="multipart/form-data">
 
     		Student ID:<br>
-    		<input type="text" name="id" placeholder="Ex: 12345678" ><br><br>
+    		<input type="text" name="id" placeholder="Ex: 12345678" required><br>
 
       Previous Position:<br>
-  		<input type="text" name="prev" placeholder="Previous Position"><br>
+  		<input type="text" name="prev" placeholder="Previous Position" required><br>
 
       Current Position:<br>
-  		<input type="text" name="curr" placeholder="Current Position"><br>
+  		<input type="text" name="curr" placeholder="Current Position" required><br><br>
 
-      Wanted Position:<br>
-  		<input type="text" name="want" placeholder="Wanted Position"><br><br>
-
+      Wanted Positions:<br>
 <div>
-<select multiple id="select">
-</select><br>
+<select multiple id="select" name="select[]" required>
+</select>
+<br><br>
 </body>
 
 <!-- Rough code for entering grades-->
@@ -203,25 +201,34 @@ function myFunction(val)
 </div>	
 
       GPA:<br>
-      <input type="text" name="gpa" placeholder="GPA"><br>
+      <input type="text" name="gpa" placeholder="GPA" required><br>
 	  
 	  Anticipated Grad. Date:<br>
-      <input type="text" name="gradDate" placeholder="Ex: Fall 2016" ><br>
+      <input type="text" name="gradDate" placeholder="Ex: Fall 2016" required><br>
 
       Advisor:<br>
-      <input type="text" name="advisor" placeholder="Advisor's Full Name"><br>
+      <input type="text" name="advisor" placeholder="Advisor's Full Name" required><br>
       Degree Type:<br>
-      <input type="text" name="degreetype" placeholder="Degree Type"><br><br>
+      <input type="text" name="degreetype" placeholder="Degree Type" required><br>
+	  Major:<br>
+	  <input type="text" name="major" placeholder="Major" required><br><br>
+	  
 
       Graduate Student:<br>
       <input type="radio" name="gradstudent" value="true">Graduate<br>
       <input type="radio" name="gradstudent" value="false">Undergraduate<br><br>
-      <input type="checkbox" name="international" value="Applies"/> International Applicant: <br><br>
-
+	  <input type="checkbox" name="gato" value="false"/> International Applicant: <br>
+      <input type="checkbox" name="international" value="false"/> Completed GATO: <br>
+	  <input type="checkbox" name="international" value="false"/> Will complete GATO: <br><br>
+		<br>
+			Select PDF to upload for resume:
+		<input type="file" name="fileToUpload" id="fileToUpload" required>
+		<br>
+		<br>
   		<input type="submit" value="Send">
-  		<input type="reset" value="Reset">
   		</form>
   		</br>
+		<br>
       </div>
 
       <div class="well">
