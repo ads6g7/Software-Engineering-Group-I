@@ -8,6 +8,7 @@
 -->
 
 <?php
+	require "config.php";
 	
 	// Here we are using sessions to propagate the login
 	if(!session_start()) {
@@ -18,31 +19,14 @@
 
 	$errors = 0; // track errors
 
-	$dbhost = "host=/var/lib/openshift/5527ddbb5973cacee00000e9/postgresql/socket/";
-	$dbuser = "adminup8hec1";
-	$dbpass = "evnEWGkla94u";	
-	$dbname = "groupi";
-	$dbconn = pg_connect($dbhost, $dbname, $dbuser, $dbpass) or die('Unable to connect to database' . pg_last_error());
+	//$conn_string = "host=/var/lib/openshift/5527ddbb5973cacee00000e9/postgresql/socket/ user=adminup8hec1 password=evnEWGkla94u dbname=groupi"
+	$dbconn = pg_connect(DB_HOST DB_NAME DB_USER DB_PASS) or die('Unable to connect to database!' . pg_last_error());
 
+	// Check for connection to database
 	if(!$dbconn)
 		echo "Error: Unable to connect to the database server!" . "Error code: " . pg_last_error() . "</p>\n";
 	else
 		echo "Opened database successfully!";
-	
-
-	// Check to see if the user has already logged in
-	$loggedIn = empty($_SESSION['loggedin']) ? false : $_SESSION['loggedin'];
-	
-	/* checks for logged in status. will need to add additional checks for
-			applicant
-			professor
-			admin
-	*/
-	if ($loggedIn) {
-		//Temporary dashboard redirect
-		header("Location: http://groupi-softwareeng.rhcloud.com/applicantdashboard.html");
-		exit;
-	}
 	
 	
 	$action = empty($_POST['action']) ? '' : $_POST['action']; //looks at the form action. We have a hidden element with action do_login
@@ -64,12 +48,13 @@
 		{
 			$query = "SELECT username FROM users.professors WHERE username = '" . $1 . "' and '" . "SELECT password FROM users.authentication WHERE password_hash = '" . $2 . "'";
 			$result = pg_prepare($dbconn, "Check", $query) or die("Invalid query" . pg_last_error());
-			$found = pg_execute($dbconn, "Check", array($username, $password)) or die("Couldn't authenticate username or password: " . pg_last_error());
+			$found = pg_execute($dbconn, "Check", array($username, sha1($password))) or die("Couldn't authenticate username or password: " . pg_last_error());
 			if($found == 0)
 			{
-				echo "<p>The username or password combination entered is not valid.</p>\n";
-				++$errors;
-
+				//If not found in users.professors, check users.user_info?
+				$query = "SELECT username FROM users.user_info WHERE username = '" . $1 . "' and '" . "SELECT password FROM users.authentication WHERE password_hash = '" . $2 . "'";
+				$result = pg_prepare($dbconn, "Check", $query) or die("Invalid query" . pg_last_error());
+				$found = pg_execute($dbconn, "Check", array($username, sha1($password))) or die("Couldn't authenticate username or password: " . pg_last_error());
 			}
 			else
 			{
