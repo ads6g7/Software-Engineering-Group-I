@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <!-- Sign In from template, Ben Woolridge, Shannon Hall -->
@@ -53,7 +52,8 @@
 			    	<h3 class="panel-title">Please sign in</h3>
 			 	</div>
 			  	<div class="panel-body">
-			    	<form method= "POST" action="http://groupi-softwareeng.rhcloud.com/applicantdashboard.html" accept-charset="UTF-8" role="form">
+			    	<form method= "POST" action="login.php" accept-charset="UTF-8" role="form">
+                        <input type="hidden" name="action" value="do_login">
                     <fieldset>
 			    	  	<div class="form-group">
 			    		    <input class="form-control" placeholder="User" name="username" type="text">
@@ -63,8 +63,21 @@
 			    		</div>
 			    		<input class="btn btn-lg btn-success btn-block" type="submit" value="Login"><br>
 						<div>
-						 Don't have an account?  <a href="https://groupi-softwareeng.rhcloud.com/registration.php">Register Here</a>
+						 Don't have an account?  <a href="registration.php">Register Here</a>
 						</div>
+						<div>
+			    		<input class="btn btn-lg btn-success btn-block" type="submit" value="Login"><br>
+			    					    	  	<div class="form-group">
+			    		    <input class="form-control" placeholder="User" name="user" type="text">
+							</div>
+						</div>
+			    		<div class="form-group">
+			    			<input class="form-control" placeholder="Password" name="password" type="password" value="">
+			    		</div>
+			    		<div class="form-group">
+			    			<input class="form-control" placeholder="Re-Password" name="password" type="password" value="">
+			    		</div>
+			    		<input class="btn btn-lg btn-info btn-block" type="submit" value="Register">
 			    	</fieldset>
 			      	</form>
 			    </div>
@@ -144,3 +157,5 @@ if(isset($_POST['submit']=="Login"))
 /*Test info is benTest--joker123*/
 	
 ?>	
+  </body>
+</html>

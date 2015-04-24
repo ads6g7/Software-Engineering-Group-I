@@ -20,7 +20,7 @@
 </script>
 <style>
 .panel{
-  max-width: 330px;
+  max-width: 1000px;
   margin: 0 auto;
   }
 .btn-block{
@@ -71,29 +71,41 @@
       <thead>
           <tr>
             <th>#</th>
+            <th>Delete</th>
             <th>First Name</th>
             <th>Last Name</th>
             <th>Username</th>
+            <th>Rank</th>
+            <th>Comment</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <th scope="row">1</th>
+            <td><button type="button" class="btn btn-danger">✘</button></td>
             <td>Shannon</td>
             <td>Hall</td>
             <td>skhhdc</td>
-          </tr>
-          <tr>
+            <td><form><input type="text" name="firstname" size="1"></form></td>
+            <td><form><input type="text" name="firstname" size="37"></form></td>
+            </tr>
+            <tr>
             <th scope="row">2</th>
+            <td><button type="button" class="btn btn-danger">✘</button></td>
             <td>Jacob</td>
             <td>Terry</td>
             <td>jthz74</td>
+            <td><form><input type="text" name="firstname" size="1"></form></td>
+            <td><form><input type="text" name="firstname" size="37"></form></td>
           </tr>
           <tr>
             <th scope="row">3</th>
+            <td><button type="button" class="btn btn-danger">✘</button></td>
             <td>Larry</td>
             <td>Smith</td>
             <td>layyv9</td>
+            <td><form><input type="text" name="firstname" size="1"></form></td>
+            <td><form><input type="text" name="firstname" size="37"></form></td>
           </tr>
         </tbody>
   </table>

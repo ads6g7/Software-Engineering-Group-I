@@ -33,6 +33,16 @@ CS4320
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+	<!--JS form validation-->
+	<script>
+	function validateForm() {
+	    var x = document.forms["appForm"].value;
+	    if (x == null || x == "") {
+	        alert("Name must be filled out");
+	        return false;
+	    }
+	}
+	</script>
 	
 	<?php
 	$today = date("Y-m-d");
@@ -154,7 +164,7 @@ function classArray()
 
           <h2>Questions:</h2>
 
-  		<form action="upload.php" method="post" enctype="multipart/form-data">
+  		<form name="appform" action="upload.php" method="post" enctype="multipart/form-data" action="demo_form.asp" method="post">
 
     		Student ID:<br>
     		<input type="text" name="id" placeholder="Ex: 12345678" required><br>
