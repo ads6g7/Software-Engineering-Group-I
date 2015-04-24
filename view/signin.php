@@ -52,7 +52,7 @@
 			    	<h3 class="panel-title">Please sign in</h3>
 			 	</div>
 			  	<div class="panel-body">
-			    	<form method= "POST" action="http://groupi-softwareeng.rhcloud.com/login.php" accept-charset="UTF-8" role="form">
+			    	<form method= "POST" action="login.php" accept-charset="UTF-8" role="form">
                         <input type="hidden" name="action" value="do_login">
                     <fieldset>
 			    	  	<div class="form-group">
@@ -63,7 +63,7 @@
 			    		</div>
 			    		<input class="btn btn-lg btn-success btn-block" type="submit" value="Login"><br>
 						<div>
-						 Don't have an account?  <a href="https://groupi-softwareeng.rhcloud.com/registration.php">Register Here</a>
+						 Don't have an account?  <a href="registration.php">Register Here</a>
 						</div>
 						<div>
 			    		<input class="btn btn-lg btn-success btn-block" type="submit" value="Login"><br>
