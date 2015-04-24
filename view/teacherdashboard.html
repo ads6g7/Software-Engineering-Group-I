@@ -114,11 +114,19 @@
         //output number of rows
         echo "<br/><table border=\"2\">";
         echo "<tr>";
-        echo "<th> Actions</th>" . "\n";
-        echo "<th> country_code</th>";
-        echo "<th> name</th>";
-        echo "<th> continent</th>";
-        echo "<th> region</th>";
+        echo "<th> studentID</th>" . "\n";
+        echo "<th> major</th>";
+        echo "<th> gradDate</th>";
+        echo "<th> previous</th>";
+        echo "<th> cur</th>";
+        echo "<th> GPA</th>";
+        echo "<th> isGrad</th>";
+        echo "<th> degree</th>";
+        echo "<th> Advisor</th>";
+        echo "<th> isInternational</th>";
+        echo "<th> GATO</th>";
+        echo "<th> filename</th>";
+        echo "<th> pdf</th>";
         echo "</tr>";
         $holder;
         $temp = 0;
@@ -156,11 +164,19 @@
         echo "<hr /><br/>There were " . $temp . " rows." ."<br />";
         echo "<br/><table border=\"2\">";
         echo "<tr>";
-        echo "<th> Actions</th>" . "\n";
-        echo "<th> country_code</th>";
-        echo "<th> name</th>";
-        echo "<th> continent</th>";
-        echo "<th> region</th>";
+        echo "<th> studentID</th>" . "\n";
+        echo "<th> major</th>";
+        echo "<th> gradDate</th>";
+        echo "<th> previous</th>";
+        echo "<th> cur</th>";
+        echo "<th> GPA</th>";
+        echo "<th> isGrad</th>";
+        echo "<th> degree</th>";
+        echo "<th> Advisor</th>";
+        echo "<th> isInternational</th>";
+        echo "<th> GATO</th>";
+        echo "<th> filename</th>";
+        echo "<th> pdf</th>";
         echo "</tr>";
         $holder;
         $temp = 0;
@@ -168,14 +184,20 @@
       while($holder = pg_fetch_all($outcome))
       {
         echo "<tr>";
-        echo "<td>" . htmlspecialchars($holder['country_code']) . "</td>";
-        echo "<td>" . htmlspecialchars($holder['country_code']) . "</td>";
-        echo "<td>" . htmlspecialchars($holder['name']) . "</td>";
-        echo "<td>" . htmlspecialchars($holder['continent']) . "</td>";
-        echo "<td>" . htmlspecialchars($holder['region']) . "</td>";
-        echo "<td>" . htmlspecialchars($holder['surface_area']) . "</td>";
-        echo "<td>" . htmlspecialchars($holder['indep_year']) . "</td>";
-        echo "<td>" . htmlspecialchars($holder['population']) . "</td>";
+        echo "<td>" . htmlspecialchars($holder['username']) . "</td>";
+        echo "<td>" . htmlspecialchars($holder['studentID']) . "</td>";
+        echo "<td>" . htmlspecialchars($holder['major']) . "</td>";
+        echo "<td>" . htmlspecialchars($holder['gradDate']) . "</td>";
+        echo "<td>" . htmlspecialchars($holder['previous']) . "</td>";
+        echo "<td>" . htmlspecialchars($holder['cur']) . "</td>";
+        echo "<td>" . htmlspecialchars($holder['GPA']) . "</td>";
+        echo "<td>" . htmlspecialchars($holder['isGrad']) . "</td>";
+        echo "<td>" . htmlspecialchars($holder['degree']) . "</td>";
+        echo "<td>" . htmlspecialchars($holder['Advisor']) . "</td>";
+        echo "<td>" . htmlspecialchars($holder['isAdvisor']) . "</td>";
+        echo "<td>" . htmlspecialchars($holder['GATO']) . "</td>";
+        echo "<td>" . htmlspecialchars($holder['filename']) . "</td>";
+        echo "<td>" . htmlspecialchars($holder['pdf']) . "</td>";
         echo "</tr>";
         $temp++;
       }

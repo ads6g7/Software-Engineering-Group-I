@@ -227,15 +227,18 @@ function myFunction(val)
       Graduate Student:<br>
       <input type="radio" name="gradstudent" value="true">Graduate<br>
       <input type="radio" name="gradstudent" value="false">Undergraduate<br><br>
-	  <input type="checkbox" name="gato" value="false"/> International Applicant <br>
+	  <p>New TAs, ITAs, and PLAs who have received an appointment, are required to participate in the GATO
+		(Graduate Assistant Teaching Orientation), which is offered just prior to the start of fall and winter terms. (You
+		do not need to attend more than once.) Select if the requirement has been met or if you will attend in Aug./Jan.</p>
       <input type="radio" name="gato" value="false"/> Completed GATO <br>
 	  <input type="radio" name="gato" value="true"/> Will complete GATO <br><br>
+	  <input type="checkbox" name="international" value="false"/> International Applicant <br><br>
 		<br>
 			Select PDF to upload for resume:
 		<input type="file" name="fileToUpload" id="fileToUpload" required>
 		<br>
 		<br>
-  		<input type="submit" value="Send">
+  		<input type="submit" value="Save and Continue">
   		</form>
   		</br>
 		<br>
