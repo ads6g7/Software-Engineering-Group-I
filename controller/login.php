@@ -1,3 +1,7 @@
+<!DOCTYPE html>
+<?php
+	require_once("config.php");
+?>
 <!--
 	GroupI
 	Software Engineering
@@ -6,15 +10,14 @@
 	Description: login.php handles all login attempts on index.html. On a successful login, the user is redirected to
 				 either the admin, professor, or applicant dashboards accordingly.
 -->
-<!DOCTYPE html>
 <html>
 	<head>
-		<title></title>
+		<title>Authentication</title>
 	</head>
 
 	<body>
 <?php
-	require_once("config.php");
+	//require_once("config.php");
 	
 	// Here we are using sessions to propagate the login
 	if(!session_start()) {
@@ -24,11 +27,11 @@
 	}
 
 	//$conn_string = pg_connect("host=/var/lib/openshift/5527ddbb5973cacee00000e9/postgresql/socket/ user=adminup8hecl password=evnEWGkla94u dbname=groupi") or die('Could not connect to DB ' . pg_last_error());
-	$dbconn = pg_connect(DB_HOST DB_USER DB_PASS DB_NAME) or die('Unable to connect to database!');
+	$dbconn = pg_connect(DB_HOST DB_USER DB_PASS DB_NAME) or die('<p>Unable to connect to database!</p>');
 
 	// Check for connection to database
 	if(!$dbconn)
-		echo "<p>Error: Unable to connect to the database server!" . "Error code: " . pg_last_error() . "</p>\n";
+		echo "<p>Error: Unable to connect to the database server! " . "Error code: " . pg_last_error() . "</p>\n";
 	else
 		echo "<p>Opened database successfully!</p>\n";
 	
