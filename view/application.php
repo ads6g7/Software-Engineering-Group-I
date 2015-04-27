@@ -18,9 +18,15 @@ CS4320
     <title>TA Application Form</title>
 
     <!-- Bootstrap core CSS -->
+<<<<<<< HEAD
     <link href="https://babbage.cs.missouri.edu/~skhhdc/cs2830/finalProject/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap theme -->
     <link href="https://babbage.cs.missouri.edu/~skhhdc/cs2830/finalProject/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+=======
+    <link href="http://babbage.cs.missouri.edu/~skhhdc/cs2830/finalProject/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap theme -->
+    <link href="http://babbage.cs.missouri.edu/~skhhdc/cs2830/finalProject/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+>>>>>>> origin/skhhdc
 
     <!-- Custom styles for this template -->
     <link href="theme.css" rel="stylesheet">
@@ -33,6 +39,7 @@ CS4320
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+<<<<<<< HEAD
 	<!--JS form validation-->
 	<script>
 	function validateForm() {
@@ -48,6 +55,13 @@ CS4320
 	$today = date("Y-m-d");
 	$date = "2015-04-25";
 	
+=======
+
+	<?php
+	$today = date("Y-m-d");
+	$date = "2015-04-25";
+
+>>>>>>> origin/skhhdc
 	if (strtotime($date) < strtotime($today)) {
 		echo "<div class=\"container\">
 			<div class=\"row\">
@@ -60,9 +74,16 @@ CS4320
 			exit;
 	}
 	?>
+<<<<<<< HEAD
   </head>
 
   <body role="document" onload="classArray()">
+=======
+
+  </head>
+
+  <body role="document" onload="classArray()>
+>>>>>>> origin/skhhdc
 
 <script>
 <!--Figured we'd pull from database, but for now using this. Also got rid of grades JS, too sloppy/unreliable-->
@@ -164,6 +185,7 @@ function classArray()
 
           <h2>Questions:</h2>
 
+<<<<<<< HEAD
   		<form name="appform" action="upload.php" method="post" enctype="multipart/form-data" action="demo_form.asp" method="post">
 
     		Student ID:<br>
@@ -180,6 +202,25 @@ function classArray()
 <select multiple id="select" name="select[]" required>
 </select>
 <br><br>
+=======
+  		<form>
+
+    		Student ID:<br>
+    		<input type="text" name="id" placeholder="Ex: 12345678" ><br><br>
+
+      Previous Position:<br>
+  		<input type="text" name="prev" placeholder="Previous Position"><br>
+
+      Current Position:<br>
+  		<input type="text" name="curr" placeholder="Current Position"><br>
+
+      Wanted Position:<br>
+  		<input type="text" name="want" placeholder="Wanted Position"><br><br>
+
+<div>
+<select multiple id="select">
+</select><br>
+>>>>>>> origin/skhhdc
 </body>
 
 <!-- Rough code for entering grades-->
@@ -207,6 +248,7 @@ function myFunction(val)
 	myDiv.appendChild(label);
 	}
 }
+<<<<<<< HEAD
 </script>	
 </div>	
 
@@ -223,10 +265,26 @@ function myFunction(val)
 	  Major:<br>
 	  <input type="text" name="major" placeholder="Major" required><br><br>
 	  
+=======
+</script>
+</div>
+
+      GPA:<br>
+      <input type="text" name="gpa" placeholder="GPA"><br>
+
+	  Anticipated Grad. Date:<br>
+      <input type="text" name="gradDate" placeholder="Ex: Fall 2016" ><br>
+
+      Advisor:<br>
+      <input type="text" name="advisor" placeholder="Advisor's Full Name"><br>
+      Degree Type:<br>
+      <input type="text" name="degreetype" placeholder="Degree Type"><br><br>
+>>>>>>> origin/skhhdc
 
       Graduate Student:<br>
       <input type="radio" name="gradstudent" value="true">Graduate<br>
       <input type="radio" name="gradstudent" value="false">Undergraduate<br><br>
+<<<<<<< HEAD
 	  <p>New TAs, ITAs, and PLAs who have received an appointment, are required to participate in the GATO
 		(Graduate Assistant Teaching Orientation), which is offered just prior to the start of fall and winter terms. (You
 		do not need to attend more than once.) Select if the requirement has been met or if you will attend in Aug./Jan.</p>
@@ -242,6 +300,14 @@ function myFunction(val)
   		</form>
   		</br>
 		<br>
+=======
+      <input type="checkbox" name="international" value="Applies"/> International Applicant: <br><br>
+
+  		<input type="submit" value="Send">
+  		<input type="reset" value="Reset">
+  		</form>
+  		</br>
+>>>>>>> origin/skhhdc
       </div>
 
       <div class="well">

@@ -112,7 +112,11 @@
         $outcome = pg_execute($dbconn, "user_lookup", array($username));
          echo "<hr /><br/># of row: " . $temp . " rows." ."<br />";
         //output number of rows
+<<<<<<< HEAD
         echo "<br/><table border=\"2\">";
+=======
+        echo "<br/><table class = "table" border=\"2\">";
+>>>>>>> origin/skhhdc
         echo "<tr>";
         echo "<th> studentID</th>" . "\n";
         echo "<th> major</th>";
@@ -162,7 +166,11 @@
         $outcome = pg_prepare($dbconn, "city_lookup", 'SELECT * FROM lab4.city WHERE name = $1');
         $outcome = pg_execute($dbconn, "city_lookup", array($inpcode));
         echo "<hr /><br/>There were " . $temp . " rows." ."<br />";
+<<<<<<< HEAD
         echo "<br/><table border=\"2\">";
+=======
+        echo "<br/><table class="table" border=\"2\">";
+>>>>>>> origin/skhhdc
         echo "<tr>";
         echo "<th> studentID</th>" . "\n";
         echo "<th> major</th>";
@@ -204,6 +212,10 @@
         echo "</table>";
         break;
       }
+<<<<<<< HEAD
+=======
+    }
+>>>>>>> origin/skhhdc
   ?>
     </div><!-- /input-group -->
   </div><!-- /.col-lg-6 -->
