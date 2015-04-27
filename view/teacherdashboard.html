@@ -112,11 +112,7 @@
         $outcome = pg_execute($dbconn, "user_lookup", array($username));
          echo "<hr /><br/># of row: " . $temp . " rows." ."<br />";
         //output number of rows
-<<<<<<< HEAD
         echo "<br/><table border=\"2\">";
-=======
-        echo "<br/><table class = "table" border=\"2\">";
->>>>>>> origin/skhhdc
         echo "<tr>";
         echo "<th> studentID</th>" . "\n";
         echo "<th> major</th>";
@@ -163,28 +159,17 @@
       case 2:
       //course lookup
         $inpcode = $inpcode ."%";
-        $outcome = pg_prepare($dbconn, "city_lookup", 'SELECT * FROM lab4.city WHERE name = $1');
+        $outcome = pg_prepare($dbconn, "city_lookup", 'SELECT * FROM users.courses WHERE courseID = $1');
         $outcome = pg_execute($dbconn, "city_lookup", array($inpcode));
         echo "<hr /><br/>There were " . $temp . " rows." ."<br />";
-<<<<<<< HEAD
         echo "<br/><table border=\"2\">";
-=======
-        echo "<br/><table class="table" border=\"2\">";
->>>>>>> origin/skhhdc
         echo "<tr>";
-        echo "<th> studentID</th>" . "\n";
-        echo "<th> major</th>";
-        echo "<th> gradDate</th>";
-        echo "<th> previous</th>";
-        echo "<th> cur</th>";
-        echo "<th> GPA</th>";
-        echo "<th> isGrad</th>";
-        echo "<th> degree</th>";
-        echo "<th> Advisor</th>";
-        echo "<th> isInternational</th>";
-        echo "<th> GATO</th>";
-        echo "<th> filename</th>";
-        echo "<th> pdf</th>";
+        echo "<th> courseID</th>" . "\n";
+        echo "<th> department</th>" . "\n";
+        echo "<th> courseNum</th>" . "\n";
+        echo "<th> instructor</th>" . "\n";
+        echo "<th> TA</th>" . "\n";
+        echo "<th> description</th>" . "\n";
         echo "</tr>";
         $holder;
         $temp = 0;
@@ -192,30 +177,19 @@
       while($holder = pg_fetch_all($outcome))
       {
         echo "<tr>";
-        echo "<td>" . htmlspecialchars($holder['username']) . "</td>";
-        echo "<td>" . htmlspecialchars($holder['studentID']) . "</td>";
-        echo "<td>" . htmlspecialchars($holder['major']) . "</td>";
-        echo "<td>" . htmlspecialchars($holder['gradDate']) . "</td>";
-        echo "<td>" . htmlspecialchars($holder['previous']) . "</td>";
-        echo "<td>" . htmlspecialchars($holder['cur']) . "</td>";
-        echo "<td>" . htmlspecialchars($holder['GPA']) . "</td>";
-        echo "<td>" . htmlspecialchars($holder['isGrad']) . "</td>";
-        echo "<td>" . htmlspecialchars($holder['degree']) . "</td>";
-        echo "<td>" . htmlspecialchars($holder['Advisor']) . "</td>";
-        echo "<td>" . htmlspecialchars($holder['isAdvisor']) . "</td>";
-        echo "<td>" . htmlspecialchars($holder['GATO']) . "</td>";
-        echo "<td>" . htmlspecialchars($holder['filename']) . "</td>";
-        echo "<td>" . htmlspecialchars($holder['pdf']) . "</td>";
+        echo "<td>" . htmlspecialchars($holder['courseID']) . "</td>";
+        echo "<td>" . htmlspecialchars($holder['department']) . "</td>";
+        echo "<td>" . htmlspecialchars($holder['courseNum']) . "</td>";
+        echo "<td>" . htmlspecialchars($holder['instructor']) . "</td>";
+        echo "<td>" . htmlspecialchars($holder['TA']) . "</td>";
+        echo "<td>" . htmlspecialchars($holder['description']) . "</td>";
         echo "</tr>";
         $temp++;
       }
         echo "</table>";
         break;
       }
-<<<<<<< HEAD
-=======
     }
->>>>>>> origin/skhhdc
   ?>
     </div><!-- /input-group -->
   </div><!-- /.col-lg-6 -->
