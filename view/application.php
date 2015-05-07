@@ -7,86 +7,31 @@ CS4320
 
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
+    <title>TA/PLA Application Form</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="shortcut icon" href="../../assets/ico/favicon.ico">
-
-    <title>TA Application Form</title>
+    <meta name="description" content="Lightweight form validation library in JavaScript ready to include in any web application." />
 
     <!-- Bootstrap core CSS -->
-<<<<<<< HEAD
     <link href="https://babbage.cs.missouri.edu/~skhhdc/cs2830/finalProject/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap theme -->
     <link href="https://babbage.cs.missouri.edu/~skhhdc/cs2830/finalProject/dist/css/bootstrap-theme.min.css" rel="stylesheet">
-=======
-    <link href="http://babbage.cs.missouri.edu/~skhhdc/cs2830/finalProject/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap theme -->
-    <link href="http://babbage.cs.missouri.edu/~skhhdc/cs2830/finalProject/dist/css/bootstrap-theme.min.css" rel="stylesheet">
->>>>>>> origin/skhhdc
 
-    <!-- Custom styles for this template -->
-    <link href="theme.css" rel="stylesheet">
+    <!--Form Validation-->
+    <link href="http://fonts.googleapis.com/css?family=Andada" rel="stylesheet" type="text/css">
+    <link href="styles/main.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+    <script type="text/javascript" src="validate.min.js"></script>
+</head>
 
-    <!-- Just for debugging purposes. Don't actually copy this line! -->
-    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-<<<<<<< HEAD
-	<!--JS form validation-->
-	<script>
-	function validateForm() {
-	    var x = document.forms["appForm"].value;
-	    if (x == null || x == "") {
-	        alert("Name must be filled out");
-	        return false;
-	    }
-	}
-	</script>
-	
-	<?php
-	$today = date("Y-m-d");
-	$date = "2015-04-25";
-	
-=======
-
-	<?php
-	$today = date("Y-m-d");
-	$date = "2015-04-25";
-
->>>>>>> origin/skhhdc
-	if (strtotime($date) < strtotime($today)) {
-		echo "<div class=\"container\">
-			<div class=\"row\">
-			<div class=\"col-md-4 col-md-offset-4\">
-    		<div class=\"panel panel-default\">
-		  	<div class=\"panel-heading\">
-		   	<div class=\"alert alert-danger\" role=\"alert\">
-			<span aria-hidden=\"true\"></span>
-            <span class=\"sr-only\"> Error:</span>✘ Time Window Closed</div>";
-			exit;
-	}
-	?>
-<<<<<<< HEAD
-  </head>
-
-  <body role="document" onload="classArray()">
-=======
-
-  </head>
-
-  <body role="document" onload="classArray()>
->>>>>>> origin/skhhdc
+<body role="document" onload="classArray()">
 
 <script>
-<!--Figured we'd pull from database, but for now using this. Also got rid of grades JS, too sloppy/unreliable-->
 var classes=["CMP_SC 1000: Introduction to Computer Science",
 "CMP_SC 1001: Topics in Computer Science",
 "CMP_SC 1050: Algorithm Design and Programming I",
@@ -134,6 +79,7 @@ var classes=["CMP_SC 1000: Introduction to Computer Science",
 "CMP_SC 4980: Senior Capstone Design II",
 "CMP_SC 4990: Undergraduate Research in Computer Science",
 "CMP_SC 4995: Undergraduate Research in Computer Science - Honors"];
+
 function classArray()
 {
 	var select=document.getElementById("select");
@@ -148,180 +94,171 @@ function classArray()
 }
 </script>
 
+  <div class="navbar navbar-default">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand">Application Form</a>
+            </div>
+            <div class="navbar-collapse collapse">
+              <ul class="nav navbar-nav">
+                <li><a href="http://groupi-softwareeng.rhcloud.com/">Home</a></li>
+  			  <li class="active"><a href="signup.html">Sign Up</a></li>
 
-    <!-- Fixed navbar -->
-<div class="navbar navbar-default">
-        <div class="container">
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand">Application Form</a>
           </div>
-          <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-              <li><a href="http://groupi-softwareeng.rhcloud.com/">Home</a></li>
-			  <li class="active"><a href="signup.html">Sign Up</a></li>
-
         </div>
-      </div>
+        <div class="container theme-showcase" role="main">
 
-    <div class="container theme-showcase" role="main">
+          <!-- Main jumbotron for a primary marketing message or call to action -->
+          <div class="jumbotron">
+        <h2>TA/PLA Application</h2></br>
+        <div class="panel panel-info">
+                <div class="panel-heading">
+                  <h3 class="panel-title">Directions</h3>
+                </div>
+                <div class="panel-body">
+                  Please be sure to fill out all required entities in the form below</br>
+                </div>
+              </div>
 
-      <!-- Main jumbotron for a primary marketing message or call to action -->
-      <div class="jumbotron">
-	  <h2>TA/PLA Application</h2></br>
-		<div class="panel panel-info">
-            <div class="panel-heading">
-              <h3 class="panel-title">Directions</h3>
-            </div>
-            <div class="panel-body">
-              Please be sure to fill out all required entities in the form below</br>
-            </div>
-          </div>
+              <h2>Questions:</h2>
 
-          <h2>Questions:</h2>
+    <div class="success_box">✔<br></div>
+    <div class="error_box"><br></div>
 
-<<<<<<< HEAD
-  		<form name="appform" action="upload.php" method="post" enctype="multipart/form-data" action="demo_form.asp" method="post">
+    <form name="appform" action="#" method="POST">
+        <label for="id">Student ID:</label><br>
+        <input name="id" id="id" /><br><br>
 
-    		Student ID:<br>
-    		<input type="text" name="id" placeholder="Ex: 12345678" required><br>
+        <label for="prev">Previous Position:</label><br>
+        <input name="prev" id="prev" /><br><br>
 
-      Previous Position:<br>
-  		<input type="text" name="prev" placeholder="Previous Position" required><br>
+        <label for="curr">Current Position:</label><br>
+        <input name="curr" id="curr" /><br><br>
 
-      Current Position:<br>
-  		<input type="text" name="curr" placeholder="Current Position" required><br><br>
+        <label for="want">Wanted Position:</label><br>
+        <input name="want" id="want" /><br><br>
 
-      Wanted Positions:<br>
-<div>
-<select multiple id="select" name="select[]" required>
-</select>
-<br><br>
-=======
-  		<form>
+        <div><select multiple id="select" name="select[]" required></select><br><br>
 
-    		Student ID:<br>
-    		<input type="text" name="id" placeholder="Ex: 12345678" ><br><br>
+        <label for="GPA">Graduation Date:</label><br>
+        <input name="GPA" id="GPA" placeholder="Ex: 3.4"/><br>
 
-      Previous Position:<br>
-  		<input type="text" name="prev" placeholder="Previous Position"><br>
+        <label for="advisor">Advisor:</label><br>
+        <input name="advisor" id="advisor"/><br>
 
-      Current Position:<br>
-  		<input type="text" name="curr" placeholder="Current Position"><br>
+        <label for="degreetype">Degree Type:</label><br>
+        <input name="degreetype" id="degreetype"/><br>
 
-      Wanted Position:<br>
-  		<input type="text" name="want" placeholder="Wanted Position"><br><br>
+        <label for="major">Major:</label><br>
+        <input name="major" id="major"/><br><br>
 
-<div>
-<select multiple id="select">
-</select><br>
->>>>>>> origin/skhhdc
-</body>
+              <div class="alert alert-warning" role="alert">New TAs, ITAs, and PLAs who have received an appointment, are required to participate in the GATO
+		          (Graduate Assistant Teaching Orientation), which is offered just prior to the start of fall and winter terms. (You
+		          do not need to attend more than once.) Select if the requirement has been met or if you will attend in Aug./Jan.
+              </div>
 
-<!-- Rough code for entering grades-->
-<script>
-function myFunction(val)
-{
-	if (document.getElementById(val))
-	{
-		var remove=document.getElementById(val)
-		var myDiv=document.getElementById("myDiv");
-		myDiv.removeChild(remove);
-	}
-	else
-	{
-	var myDiv=document.getElementById("myDiv");
-	var mySelect=document.getElementById("select");
-	var val=mySelect.options[mySelect.selectedIndex].value;
-	var label=document.createElement("label");
-	label.appendChild(document.createTextNode("Enter grade for " +val +": "));
-	label.id=val;
-	var option = document.createElement("input");
-	option.type="text";
-	option.id=val;
-	label.appendChild(option);
-	myDiv.appendChild(label);
-	}
-}
-<<<<<<< HEAD
-</script>	
-</div>	
+        <ul class="list-group">
+          <li class="list-group-item">
+            <input type="radio" name="gato" value="false" required/> Completed GATO <br>
+          </li>
+          <li class="list-group-item">
+            <input type="radio" name="gato" value="true"/> Will complete GATO <br>
+          </li>
+        </ul>
+        <ul class="list-group">
+          <li class="list-group-item">
+            <input type="checkbox" name="international" value="false"/> International Applicant <br>
+          </li>
+          <li class="list-group-item">
+            Select PDF to upload for resume:
+            <input type="file" name="fileToUpload" id="fileToUpload" required>
+          </li>
+        </ul>
 
-      GPA:<br>
-      <input type="text" name="gpa" placeholder="GPA" required><br>
-	  
-	  Anticipated Grad. Date:<br>
-      <input type="text" name="gradDate" placeholder="Ex: Fall 2016" required><br>
+  <br>
+    <input type="submit" value="Save and Continue">
+        <button class="button gray" type="submit" name="submit">Submit</button>
+    </form>
+  </div> <!-- /container -->
 
-      Advisor:<br>
-      <input type="text" name="advisor" placeholder="Advisor's Full Name" required><br>
-      Degree Type:<br>
-      <input type="text" name="degreetype" placeholder="Degree Type" required><br>
-	  Major:<br>
-	  <input type="text" name="major" placeholder="Major" required><br><br>
-	  
-=======
+<script type="text/javascript">
+
+new FormValidator('appform', [{
+    name: 'id',
+    display: 'required',
+    rules: 'required|exact_length[8]'
+}, {
+    name: 'prev',
+    rules: 'required'
+}, {
+    name: 'curr',
+    rules: 'required'
+}, {
+    name: 'GPA',
+    rules: 'valid_email'
+}, {
+    name: 'gradDate',
+    display: 'min length',
+    rules: 'min_length[8]'
+}, {
+    name: 'advisor',
+    display: 'terms of service',
+    rules: 'required'
+}, {
+    name: 'degreetype',
+    display: 'min length',
+    rules: 'min_length[8]'
+}, {
+    name: 'major',
+    display: 'Major',
+    rules: 'required'
+}], function(errors, evt) {
+
+    var SELECTOR_ERRORS = $('.error_box'),
+        SELECTOR_SUCCESS = $('.success_box');
+
+    if (errors.length > 0) {
+        SELECTOR_ERRORS.empty();
+
+        for (var i = 0, errorLength = errors.length; i < errorLength; i++) {
+            SELECTOR_ERRORS.append("✘ " + errors[i].message + '<br />');
+        }
+
+        SELECTOR_SUCCESS.css({ display: 'none' });
+        SELECTOR_ERRORS.fadeIn(200);
+    } else {
+        SELECTOR_ERRORS.css({ display: 'none' });
+        SELECTOR_SUCCESS.fadeIn(200);
+    }
+
+    if (evt && evt.preventDefault) {
+        evt.preventDefault();
+    } else if (event) {
+        event.returnValue = false;
+    }
+});
+
 </script>
-</div>
 
-      GPA:<br>
-      <input type="text" name="gpa" placeholder="GPA"><br>
+<script type="text/javascript">
 
-	  Anticipated Grad. Date:<br>
-      <input type="text" name="gradDate" placeholder="Ex: Fall 2016" ><br>
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-26362841-1']);
+  _gaq.push(['_trackPageview']);
 
-      Advisor:<br>
-      <input type="text" name="advisor" placeholder="Advisor's Full Name"><br>
-      Degree Type:<br>
-      <input type="text" name="degreetype" placeholder="Degree Type"><br><br>
->>>>>>> origin/skhhdc
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
 
-      Graduate Student:<br>
-      <input type="radio" name="gradstudent" value="true">Graduate<br>
-      <input type="radio" name="gradstudent" value="false">Undergraduate<br><br>
-<<<<<<< HEAD
-	  <p>New TAs, ITAs, and PLAs who have received an appointment, are required to participate in the GATO
-		(Graduate Assistant Teaching Orientation), which is offered just prior to the start of fall and winter terms. (You
-		do not need to attend more than once.) Select if the requirement has been met or if you will attend in Aug./Jan.</p>
-      <input type="radio" name="gato" value="false"/> Completed GATO <br>
-	  <input type="radio" name="gato" value="true"/> Will complete GATO <br><br>
-	  <input type="checkbox" name="international" value="false"/> International Applicant <br><br>
-		<br>
-			Select PDF to upload for resume:
-		<input type="file" name="fileToUpload" id="fileToUpload" required>
-		<br>
-		<br>
-  		<input type="submit" value="Save and Continue">
-  		</form>
-  		</br>
-		<br>
-=======
-      <input type="checkbox" name="international" value="Applies"/> International Applicant: <br><br>
+</script>
 
-  		<input type="submit" value="Send">
-  		<input type="reset" value="Reset">
-  		</form>
-  		</br>
->>>>>>> origin/skhhdc
-      </div>
-
-      <div class="well">
-        <p><center><small>Group I</small></center></p>
-      </div>
-
-
-    </div> <!-- /container -->
-
-
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script src="http://babbage.cs.missouri.edu/~skhhdc/cs2830/finalProject/dist/js/bootstrap.min.js"></script>
-  </body>
+</body>
 </html>
