@@ -146,8 +146,11 @@ function classArray()
 
         <div><select multiple id="select" name="select[]" required></select><br><br>
 
-        <label for="GPA">Graduation Date:</label><br>
+        <label for="GPA">GPA:</label><br>
         <input name="GPA" id="GPA" placeholder="Ex: 3.4"/><br>
+        
+        <label for="graddate">Anticipated Graduation Date:</label><br>
+        <input name="graddate" id="graddate"/><br>
 
         <label for="advisor">Advisor:</label><br>
         <input name="advisor" id="advisor"/><br>
@@ -175,7 +178,7 @@ function classArray()
           <li class="list-group-item">
             <input type="checkbox" name="international" value="false"/> International Applicant <br>
           </li>
-          <li class="list-group-item">
+          <li class="list-group-item">gpa
             Select PDF to upload for resume:
             <input type="file" name="fileToUpload" id="fileToUpload" required>
           </li>
