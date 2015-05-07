@@ -206,9 +206,9 @@ new FormValidator('appform', [{
     name: 'GPA',
     rules: 'valid_email'
 }, {
-    name: 'gradDate',
+    name: 'graddate',
     display: 'min length',
-    rules: 'min_length[8]'
+    rules: 'exact_length[8]'
 }, {
     name: 'advisor',
     display: 'terms of service',
@@ -216,7 +216,6 @@ new FormValidator('appform', [{
 }, {
     name: 'degreetype',
     display: 'min length',
-    rules: 'min_length[8]'
 }, {
     name: 'major',
     display: 'Major',
