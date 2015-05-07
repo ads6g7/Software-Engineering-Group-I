@@ -178,7 +178,7 @@ function classArray()
           <li class="list-group-item">
             <input type="checkbox" name="international" value="false"/> International Applicant <br>
           </li>
-          <li class="list-group-item">gpa
+          <li class="list-group-item">
             Select PDF to upload for resume:
             <input type="file" name="fileToUpload" id="fileToUpload" required>
           </li>
