@@ -1,223 +1,207 @@
 <!--
-Sign Up Application Form
-TA/PLA Application Project
-Group I
-CS4320
+	GroupI
+	Software Engineering
+	4/13/15
+	Registration page
 -->
-
-<!DOCTYPE html>
+<?php
+	if(!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS']== ""){
+		$redirect = "https://".$_SERVER['HTTP_HOST']. $_SERVER['REQUEST_URI'];
+		header("Location: $redirect");
+	}
+?>
 <html lang="en">
+
 <head>
-    <title>TA/PLA Application Form</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="shortcut icon" href="../../assets/ico/favicon.ico">
-    <meta name="description" content="Lightweight form validation library in JavaScript ready to include in any web application." />
 
-    <!-- Bootstrap core CSS -->
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+   <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+	
+	<title> Registration </title>
+
+	<!-- Bootstrap core CSS -->
     <link href="https://babbage.cs.missouri.edu/~skhhdc/cs2830/finalProject/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap theme -->
     <link href="https://babbage.cs.missouri.edu/~skhhdc/cs2830/finalProject/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+<style>
+.panel{
+  max-width: 330px;
+  margin: 0 auto;
+  }
+.btn-block{
+  max-width: 110px;
+  text-align: center;
+  margin: 0 auto;
+  }
+.container{
+	text-align:center;
+	}
+.jumbotron{
+	text-align:center;
+	}
+</style>
 
-    <!--Form Validation-->
+ <!--Form Validation-->
     <link href="http://fonts.googleapis.com/css?family=Andada" rel="stylesheet" type="text/css">
     <link href="styles/main.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
     <script type="text/javascript" src="validate.min.js"></script>
 </head>
-
-<body role="document" onload="classArray()">
-
-<script>
-var classes=["CMP_SC 1000: Introduction to Computer Science",
-"CMP_SC 1001: Topics in Computer Science",
-"CMP_SC 1050: Algorithm Design and Programming I",
-"CMP_SC 2001: Topics in Computer Science",
-"CMP_SC 2050: Algorithm Design and Programming II",
-"CMP_SC 2111: Production Languages",
-"CMP_SC 2270: Introduction to Digital Logic",
-"CMP_SC 2830: Introduction to the Internet, WWW and Multimedia Systems",
-"CMP_SC 3001: Topics in Computer Science",
-"CMP_SC 3050: Advanced Algorithm Design",
-"CMP_SC 3280: Computer Organization and Assembly Language",
-"CMP_SC 3330: Object Oriented Programming",
-"CMP_SC 3380: Database Applications and Information Systems",
-"CMP_SC 3530: UNIX Operating System",
-"CMP_SC 3940: Internship in Computer Science",
-"CMP_SC 4001: Topics in Computer Science",
-"CMP_SC 4050: Design and Analysis of Algorithms I",
-"CMP_SC 4060: String Algorithms",
-"CMP_SC 4070: Numerical Methods for Science and Engineering",
-"CMP_SC 4085: Problems in Computer Science",
-"CMP_SC 4270: Computer Architecture I",
-"CMP_SC 4280: Network Systems Architecture",
-"CMP_SC 4320: Software Engineering I",
-"CMP_SC 4330: Object Oriented Design I",
-"CMP_SC 4380: Database Management Systems I",
-"CMP_SC 4410: Theory of Computation I",
-"CMP_SC 4430: Compilers I",
-"CMP_SC 4440: Malware Analysis and Defense",
-"CMP_SC 4450: Principles of Programming Languages",
-"CMP_SC 4520: Operating Systems I",
-"CMP_SC 4610: Computer Graphics I",
-"CMP_SC 4620: Physically Based Modeling and Animation",
-"CMP_SC 4650: Digital Image Processing",
-"CMP_SC 4670: Digital Image Compression",
-"CMP_SC 4720: Introduction to Machine Learning and Pattern Recognition",
-"CMP_SC 4730: Building Intelligent Robots",
-"CMP_SC 4740: Interdisciplinary Introduction to NLP",
-"CMP_SC 4750: Artificial Intelligence I",
-"CMP_SC 4770: Introduction to Computational Intelligence",
-"CMP_SC 4830: Science and Engineering of the World Wide Web",
-"CMP_SC 4850: Computer Networks I",
-"CMP_SC 4860: Network Security",
-"CMP_SC 4870: Wireless and Mobile Networks",
-"CMP_SC 4970: Senior Capstone Design I",
-"CMP_SC 4980: Senior Capstone Design II",
-"CMP_SC 4990: Undergraduate Research in Computer Science",
-"CMP_SC 4995: Undergraduate Research in Computer Science - Honors"];
-
-function classArray()
-{
-	var select=document.getElementById("select");
-	for (var i=0; i<classes.length; i++)
-	{
-		var opt=document.createElement("option");
-		opt.innerHTML=classes[i];
-		opt.value=classes[i];
-		opt.onclick="myFunction(this.value)";
-		select.appendChild(opt);
-	}
-}
-</script>
-
-  <div class="navbar navbar-default">
-          <div class="container">
-            <div class="navbar-header">
-              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-              </button>
-              <a class="navbar-brand">Application Form</a>
-            </div>
-            <div class="navbar-collapse collapse">
-              <ul class="nav navbar-nav">
-                <li><a href="http://groupi-softwareeng.rhcloud.com/">Home</a></li>
-  			  <li class="active"><a href="signup.html">Sign Up</a></li>
-
+<body>
+ <div class="navbar-wrapper navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand">Registration</a>
           </div>
+          <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+    	      <!--<li ><a href="https://groupi-softwareeng.rhcloud.com/logout.php"><span ></span>Logout</a></li>-->
         </div>
-        <div class="container theme-showcase" role="main">
+      </div>
+      
+		<div class="container theme-showcase" role="main">
 
-          <!-- Main jumbotron for a primary marketing message or call to action -->
-          <div class="jumbotron">
-        <h2>TA/PLA Application</h2></br>
-        <div class="panel panel-info">
-                <div class="panel-heading">
-                  <h3 class="panel-title">Directions</h3>
-                </div>
-                <div class="panel-body">
-                  Please be sure to fill out all required entities in the form below</br>
-                </div>
-              </div>
+      <!--  Main jumbotron for a primary marketing message or call to action -->
+		<div class="jumbotron">
+	  		<div class="panel panel-info">
+            <div class="panel-heading">
+              <h3 class="panel-title">Create New User</> 
+            </div>
+            <div class="panel-body">
+              From here you can register a new user by filling in the required fields below.<br/>
+			  <br/>Password must be 8 characters long.
+            </div>
+          </div>
+		  <br> 
+		
 
-              <h2>Questions:</h2>
+			<form method = 'POST' action = "<?= $_SERVER['PHP_SELF']?>">
+			Username: <input type = 'text' id='username' placeholder='Pawprint' name = 'username' /><br />
+			First Name: <input type = 'text' id='fname' placeholder='First Name' name = 'fname' /><br />
+			Last Name: <input type = 'text' id='lname' placeholder='Last Name' name = 'lname' /><br />
+			Mizzou Email Address: <input type ='text' id='email' placeholder='Mizzou Email Address' name = 'email' /><br />
+			Phone Number: <input type = 'text' id='phone' placeholder='Phone Number (xxxxxxxxxx)' name = 'phone' /><br />
+			Password: <input type = 'password' id='password' placeholder='Password' name = 'password' /><br />
+			Confirm Password: <input type = 'password' id='password_confirm' placeholder='Confirm Password' name = 'password_confirm' /><br /><br>
+			<input type = 'submit' name = 'submit' value = 'Register' />
+			</form>
+			<br/><br/><br/><a href = "https://groupi-softwareeng.rhcloud.com">Return</a><br />
 
-    <div class="success_box">✔<br></div>
-    <div class="error_box"><br></div>
+		</div>
 
-    <form name="appform" action="#" method="POST">
-        <label for="id">Student ID:</label><br>
-        <input name="id" id="id" /><br><br>
-
-        <label for="prev">Previous Position:</label><br>
-        <input name="prev" id="prev" /><br><br>
-
-        <label for="curr">Current Position:</label><br>
-        <input name="curr" id="curr" /><br><br>
-
-        <label for="want">Wanted Position:</label><br>
-        <input name="want" id="want" /><br><br>
-
-        <div><select multiple id="select" name="select[]" required></select><br><br>
-
-        <label for="GPA">Graduation Date:</label><br>
-        <input name="GPA" id="GPA" placeholder="Ex: 3.4"/><br>
-
-        <label for="advisor">Advisor:</label><br>
-        <input name="advisor" id="advisor"/><br>
-
-        <label for="degreetype">Degree Type:</label><br>
-        <input name="degreetype" id="degreetype"/><br>
-
-        <label for="major">Major:</label><br>
-        <input name="major" id="major"/><br><br>
-
-              <div class="alert alert-warning" role="alert">New TAs, ITAs, and PLAs who have received an appointment, are required to participate in the GATO
-		          (Graduate Assistant Teaching Orientation), which is offered just prior to the start of fall and winter terms. (You
-		          do not need to attend more than once.) Select if the requirement has been met or if you will attend in Aug./Jan.
-              </div>
-
-        <ul class="list-group">
-          <li class="list-group-item">
-            <input type="radio" name="gato" value="false" required/> Completed GATO <br>
-          </li>
-          <li class="list-group-item">
-            <input type="radio" name="gato" value="true"/> Will complete GATO <br>
-          </li>
-        </ul>
-        <ul class="list-group">
-          <li class="list-group-item">
-            <input type="checkbox" name="international" value="false"/> International Applicant <br>
-          </li>
-          <li class="list-group-item">
-            Select PDF to upload for resume:
-            <input type="file" name="fileToUpload" id="fileToUpload" required>
-          </li>
-        </ul>
-
-  <br>
-    <input type="submit" value="Save and Continue">
-        <button class="button gray" type="submit" name="submit">Submit</button>
-    </form>
-  </div> <!-- /container -->
+<?php	
+	if(isset($_POST['submit'])){
+		$username = htmlspecialchars($_POST['username']);
+		$fname = htmlspecialchars($_POST['fname']);
+		$lname = htmlspecialchars($_POST['lname']);
+		$email = htmlspecialchars($_POST['email']);
+		$phone = htmlspecialchars($_POST['phone']);
+		$password =  htmlspecialchars($_POST['password']);
+		$passConfirm = htmlspecialchars($_POST['password_confirm']);
+		
+		if(empty($username) || empty($fname) || empty($lname) || empty($email) || empty($phone)|| empty($password) || empty($passConfirm)){
+			$error = 'Please fill in all text boxes before submitting';
+			echo "<div id = out>$error</div>";
+		}
+		else{
+		
+			//include("/secure/database.php");
+			//$dbconn = pg_connect(HOST. " " .DBNAME. " " .USERNAME. " " .PASSWORD) or die('Unable to connect to database'.pg_last_error());
+			$dbconn = pg_connect("host=/var/lib/openshift/5527ddbb5973cacee00000e9/postgresql/socket/ dbname=groupi user=adminup8hecl password=evnEWGkla94u") or die('Unable to connect to database' .pg_last_error());
+			
+			$result = pg_prepare($dbconn, "Check", "select * from users.user_info where username = $1");
+			$result = pg_execute($dbconn, "Check", array($username));
+			$found = pg_num_rows($result);
+			/*$user_flag = true;
+			while($line = pg_fetch_array($result, null, PGSQL_ASSOC)){
+				//echo "<br>u = " .$username;
+				//echo "<br>u2 = " .$line['username'];
+				if($username === $line['username']){
+					echo "Error: username already exists.";
+					$user_flag = false;
+				}
+			}*/
+			if($found == 1){
+				$error = 'Username is already taken.';
+				echo "<div id = out>$error</div>";
+			}
+			else if($password == $passConfirm){
+				mt_srand();
+				$salt = sha1(mt_rand());
+				$passwordHash = sha1($salt . $password);
+				//$date = date('Y/m/d H:i:s');
+				
+				$result = pg_prepare($dbconn, "insertion", "INSERT INTO users.user_info VALUES($1, $2, $3, $4, $5, DEFAULT, DEFAULT, 'No comments')") or die('Invalid user query'. pg_last_error());
+				$result = pg_execute($dbconn, "insertion", array($username, $fname, $lname, $email, $phone)) or die('Couldn\'t insert the values into user info: '.pg_last_error());
+				
+				$result = pg_prepare($dbconn, "auth", 'INSERT INTO users.authentication VALUES($1, $2, $3);') or die('Invalid auth query' . pg_last_error());
+				$result = pg_execute($dbconn, "auth", array($username, $passwordHash, $salt)) or die('Couldn\'t insert the values into authenticate: ' . pg_last_error());
+				
+				//$ip = $_SERVER['REMOTE_ADDR'];
+				//pg_prepare($dbconn, "log in", 'INSERT INTO users.log VALUES(DEFAULT, $1, $2, DEFAULT, $3);') or die('Invalid log in query'. pg_last_error());
+				//pg_prepare($dbconn, "log in", array($username, $ip_address, 'registration')) or die('Couldn\'t insert the values into log in: ' . pg_last_error());
+				
+				$success = 'User was created successfully';
+				echo "<div id = out>$success</div>";
+				
+				session_start();
+				$_SESSION['USERNAME'] = $username;
+				$redirect = "https://groupi-softwareeng.rhcloud.com/View/application.php";
+				header("Location: $redirect");
+			}
+			else if($password != $passConfirm){
+				$error = 'Passwords do not match';
+				echo "<div id = out>$error</div>";
+			}
+			else{
+				$error = 'Error with submitting this registration form';
+				echo "<div id = out>$error</div>";
+			}
+			
+			pg_free_result($result);
+			pg_close($dbconn);
+		}
+	}
+?>
 
 <script type="text/javascript">
 
 new FormValidator('appform', [{
-    name: 'id',
+    name: 'username',
     display: 'required',
-    rules: 'required|exact_length[8]'
+    rules: 'required|exact_length[6]'
 }, {
-    name: 'prev',
+    name: 'fname',
     rules: 'required'
 }, {
-    name: 'curr',
+    name: 'lname',
     rules: 'required'
 }, {
-    name: 'GPA',
+    name: 'email',
     rules: 'valid_email'
 }, {
-    name: 'gradDate',
+    name: 'phone',
     display: 'min length',
-    rules: 'min_length[8]'
+    rules: 'exact_length[10]'
 }, {
-    name: 'advisor',
+    name: 'password',
     display: 'terms of service',
     rules: 'required'
 }, {
-    name: 'degreetype',
-    display: 'min length',
-    rules: 'min_length[8]'
-}, {
-    name: 'major',
-    display: 'Major',
-    rules: 'required'
+    name: 'password_confirm',
+    display: 'password confirmation',
+    rules: 'required|matches[password]'
 }], function(errors, evt) {
 
     var SELECTOR_ERRORS = $('.error_box'),
