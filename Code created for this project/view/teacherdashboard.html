@@ -1,0 +1,203 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<!-- Not In Use atm -->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Applicant Home</title>
+
+ <!-- Bootstrap core CSS -->
+    <link href="https://babbage.cs.missouri.edu/~skhhdc/cs2830/finalProject/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap theme -->
+    <link href="https://babbage.cs.missouri.edu/~skhhdc/cs2830/finalProject/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+
+
+</script>
+<style>
+.panel{
+  max-width: 330px;
+  margin: 0 auto;
+  }
+.btn-block{
+  max-width: 110px;
+  text-align: center;
+  margin: 0 auto;
+  }
+.container{
+	text-align:center;
+	}
+.jumbotron{
+	text-align:center;
+	}
+</style>
+  </head>
+
+  <body>
+<nav class="navbar-wrapper navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand">Dashboard</a>
+          </div>
+          <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+        <li class="active"><a href="http://groupi-softwareeng.rhcloud.com/teacherdashboard.html">Home</a></li>
+	<li ><a href="#"><span ></span>Logout</a></li>
+        </div>
+      </div>
+
+		<div class="container theme-showcase" role="main">
+
+      <!-- Main jumbotron for a primary marketing message or call to action -->
+      <div class="jumbotron">
+	  		<div class="panel panel-info">
+            <div class="panel-heading">
+              <h3 class="panel-title">Welcome Back!</h3>
+            </div>
+            <div class="panel-body">
+              From this page you can search for submitted applications and decide whether or not to approve them to the Administrator</br>
+            </div>
+          </div>
+		  <br>
+<center>
+  <div class="col-lg-6">
+    <div class="input-group">
+      <form method= "POST" action= "lab4.php">
+        <div>
+
+          <input type= "radio" name= "username" id= "username" value= "1" checked>
+          <label for= "username"> Username </label>
+          <!--Radio button 1 (username) checked by default-->
+          <input type= "radio" name= "course" id= "course" value= "2">
+          <label for= "course"> Course </label>
+          <!--HTML radio buttons for selecting what to search for
+          Corresponding values: (1) username (2) course
+          -->
+        </div>
+      <input type="text" class="form-control" placeholder="Search Applying Student's Name">
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="button">Search</button>
+      </span>
+    </form>
+</center>
+
+  <?php
+
+    $dbconn = pg_connect("host=dbhost-pgsql.cs.missouri.edu dbname=skhhdc user=skhhdc password=VP3RdwLt")
+    //attempt to connect to database
+    or die("Error - could not connect to database: " . pg_last_error());
+    //display error if connection is unsuccessful
+
+    $choice = $_POST['choices'];
+    $inpcode = $_POST['begin'];
+
+    if(isset($_POST['submit'])) {
+      switch($choice) {
+      case 1:
+      //username lookup
+        $inpcode = $inpcode ."%";
+        $outcome = pg_prepare($dbconn, "user_lookup", 'SELECT * FROM users.applications WHERE username = $1');
+        //sql for retrieving username code key
+        $username = htmlspecialchars($_POST['username']);
+        $outcome = pg_execute($dbconn, "user_lookup", array($username));
+         echo "<hr /><br/># of row: " . $temp . " rows." ."<br />";
+        //output number of rows
+        echo "<br/><table border=\"2\">";
+        echo "<tr>";
+        echo "<th> studentID</th>" . "\n";
+        echo "<th> major</th>";
+        echo "<th> gradDate</th>";
+        echo "<th> previous</th>";
+        echo "<th> cur</th>";
+        echo "<th> GPA</th>";
+        echo "<th> isGrad</th>";
+        echo "<th> degree</th>";
+        echo "<th> Advisor</th>";
+        echo "<th> isInternational</th>";
+        echo "<th> GATO</th>";
+        echo "<th> filename</th>";
+        echo "<th> pdf</th>";
+        echo "</tr>";
+        $holder;
+        $temp = 0;
+        //Output columns
+
+      while($holder = pg_fetch_all($outcome)) {
+      //fetch all rows from the outcome
+        echo "<tr>";
+        echo "<td>" . htmlspecialchars($holder['username']) . "</td>";
+        echo "<td>" . htmlspecialchars($holder['studentID']) . "</td>";
+        echo "<td>" . htmlspecialchars($holder['major']) . "</td>";
+        echo "<td>" . htmlspecialchars($holder['gradDate']) . "</td>";
+        echo "<td>" . htmlspecialchars($holder['previous']) . "</td>";
+        echo "<td>" . htmlspecialchars($holder['cur']) . "</td>";
+        echo "<td>" . htmlspecialchars($holder['GPA']) . "</td>";
+        echo "<td>" . htmlspecialchars($holder['isGrad']) . "</td>";
+        echo "<td>" . htmlspecialchars($holder['degree']) . "</td>";
+        echo "<td>" . htmlspecialchars($holder['Advisor']) . "</td>";
+        echo "<td>" . htmlspecialchars($holder['isAdvisor']) . "</td>";
+        echo "<td>" . htmlspecialchars($holder['GATO']) . "</td>";
+        echo "<td>" . htmlspecialchars($holder['filename']) . "</td>";
+        echo "<td>" . htmlspecialchars($holder['pdf']) . "</td>";
+        echo "</tr>";
+        $temp++;
+        //move ahead & output extracted info from database
+      }
+        echo "</table>";
+        break;
+
+      case 2:
+      //course lookup
+        $inpcode = $inpcode ."%";
+        $outcome = pg_prepare($dbconn, "city_lookup", 'SELECT * FROM users.courses WHERE courseID = $1');
+        $outcome = pg_execute($dbconn, "city_lookup", array($inpcode));
+        echo "<hr /><br/>There were " . $temp . " rows." ."<br />";
+        echo "<br/><table border=\"2\">";
+        echo "<tr>";
+        echo "<th> courseID</th>" . "\n";
+        echo "<th> department</th>" . "\n";
+        echo "<th> courseNum</th>" . "\n";
+        echo "<th> instructor</th>" . "\n";
+        echo "<th> TA</th>" . "\n";
+        echo "<th> description</th>" . "\n";
+        echo "</tr>";
+        $holder;
+        $temp = 0;
+
+      while($holder = pg_fetch_all($outcome))
+      {
+        echo "<tr>";
+        echo "<td>" . htmlspecialchars($holder['courseID']) . "</td>";
+        echo "<td>" . htmlspecialchars($holder['department']) . "</td>";
+        echo "<td>" . htmlspecialchars($holder['courseNum']) . "</td>";
+        echo "<td>" . htmlspecialchars($holder['instructor']) . "</td>";
+        echo "<td>" . htmlspecialchars($holder['TA']) . "</td>";
+        echo "<td>" . htmlspecialchars($holder['description']) . "</td>";
+        echo "</tr>";
+        $temp++;
+      }
+        echo "</table>";
+        break;
+      }
+    }
+  ?>
+    </div><!-- /input-group -->
+  </div><!-- /.col-lg-6 -->
+</div><!-- /.row -->
+
+
+</div>
+</nav>
+
+  </body>
+</html>
