@@ -1,7 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
-<!-- Sign In from template, Ben Woolridge, Shannon Hall -->
   <head>
+	<?php
+		if(!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] == ""){
+			$redirect = "https://".$_SERVER['HTTP_HOST']. $_SERVER['REQUEST_URI'];
+			header("Location: $redirect");
+		}
+  
+		session_start();
+		if(isset($_SESSION['USERNAME']))
+		{
+			$username=htmlspecialchars($_SESSION['USERNAME']);
+			$dbconn = pg_connect("host=/var/lib/openshift/5527ddbb5973cacee00000e9/postgresql/socket/ dbname=groupi user=adminup8hecl password=evnEWGkla94u") or die('Unable to connect to database' .pg_last_error());
+			
+			$result = pg_prepare($dbconn, "Check", "select * from users.professors where username = $1");
+			$result = pg_execute($dbconn, "Check", array($username));
+			$rows=pg_num_rows($result);
+			
+			if ($rows==1)
+			{
+				$redirect = "https://groupi-softwareeng.rhcloud.com/View/teacherdashboard.php";
+				header("Location: $redirect");
+			}
+			
+			else if (strcmp($username, "admin")==0)
+			{
+				$redirect = "https://groupi-softwareeng.rhcloud.com/View/admindashboard.php";
+				header("Location: $redirect");
+			}
+			
+			else
+			{
+				$redirect = "https://groupi-softwareeng.rhcloud.com/View/applicantdashboard.php";
+				header("Location: $redirect");
+			}
+		}
+	?>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,59 +47,36 @@
     <title>Signin</title>
 
     <!-- Bootstrap core CSS -->
-      <link href="http://babbage.cs.missouri.edu/~skhhdc/cs2830/finalProject/dist/css/bootstrap.min.css" rel="stylesheet">
+      <link href="https://babbage.cs.missouri.edu/~skhhdc/cs2830/finalProject/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap theme -->
-    <link href="http://babbage.cs.missouri.edu/~skhhdc/cs2830/finalProject/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="https://babbage.cs.missouri.edu/~skhhdc/cs2830/finalProject/dist/css/bootstrap-theme.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="signin.css" rel="stylesheet">
+<!-- Fixed navbar -->
+<div class="navbar navbar-default">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand">Sign In</a>
+          </div>
+          <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+          <!--    <li><a href="http://groupi-softwareeng.rhcloud.com/applicantdashboard.html">Home</a></li>
+			  <li class="active"><a href="http://groupi-softwareeng.rhcloud.com/applicantdashboard.html#">Sign Up</a></li> -->
 
-	<?php
-	//$conn = pg_connect("host=127.4.136.130 port=5432 dbname=groupi user=adminup8hecl password=evnEWGkla94u") or die("Could not connect: ".pg_last_error());
-
-	$today = date("Y-m-d");
-	$date = "2015-04-25";
-	
-	if (strtotime($date) < strtotime($today)) {
-		echo "<div class=\"container\">
-    <div class=\"row\">
-		<div class=\"col-md-4 col-md-offset-4\">
-    		<div class=\"panel panel-default\">
-			  	<div class=\"panel-heading\">
-
-			    	<h3 class=\"panel-title\">Time window closed</h3>";
-		exit;
-	}
-	/* Code for "registering" users, however I can't currently get into DB so just putting this here now.
-	if($_POST['action']=='Register'){
-	
-		$usr = $_POST['user'];
-		$pwd = $_POST['password'];
-		$conf_pass = $_POST['repassword'];
-
-		//check if passwords are same
-		if($pwd != $conf_pass)
-			die ('Passwords do not match');
-		if($usr == NULL || $pwd == NULL)
-			die('All fields required');
-	
-		//hash and salt password
-		$salt = random();
-		$pwSalt = $salt.$pwd;
-		$hash = sha1($pwSalt);
-	
-	}*////////////
-	?>
-			    	<div class="alert alert-danger" role="alert">
-                      <span aria-hidden="true"></span>
-                      <span class="sr-only"> Error:</span>✘ Time Window Closed
-</div>
-  
+        </div>
+      </div>
+ </div>   
 
   </head>
 
   <body>
-
     <div class="container">
     <div class="row">
 		<div class="col-md-4 col-md-offset-4">
@@ -74,30 +85,26 @@
 			    	<h3 class="panel-title">Please sign in</h3>
 			 	</div>
 			  	<div class="panel-body">
-			    	<form medthod="POST" accept-charset="UTF-8" role="form">
+			    	<form method= "POST" action="https://groupi-softwareeng.rhcloud.com/Controller/loginTest.php" accept-charset="UTF-8" role="form">
+                        <input type="hidden" name="action" value="do_login">
                     <fieldset>
+						<?php
+							session_start();
+							if($_SESSION['INVALID_LOGIN'] == 'notValid'){
+								echo "Error, not valid input information <br/>";
+							}
+						?>
 			    	  	<div class="form-group">
-			    		    <input class="form-control" placeholder="User" name="user" type="text">
+			    		    <input class="form-control" placeholder="User" name="username" type="text">
 			    		</div>
 			    		<div class="form-group">
 			    			<input class="form-control" placeholder="Password" name="password" type="password" value="">
 			    		</div>
-			    		<div class="checkbox">
-			    	    	<label>
-			    	    		<input name="remember" type="checkbox" value="Remember Me"> Remember Me
-			    	    	</label>
-			    	    </div>
 			    		<input class="btn btn-lg btn-success btn-block" type="submit" value="Login"><br>
-			    					    	  	<div class="form-group">
-			    		    <input class="form-control" placeholder="User" name="user" type="text">
-			    		</div>
-			    		<div class="form-group">
-			    			<input class="form-control" placeholder="Password" name="password" type="password" value="">
-			    		</div>
-			    		<div class="form-group">
-			    			<input class="form-control" placeholder="Re-Password" name="re-password" type="password" value="">
-			    		</div>
-			    		<input class="btn btn-lg btn-info btn-block" type="submit" value="Register">
+						<div>
+						 Don't have a student account?  <a href="https://groupi-softwareeng.rhcloud.com/Controller/registration.php">Register Here</a><br>
+						 <!--Need to create a teacher account?  <a href="https://groupi-softwareeng.rhcloud.com/profregistration.php">Register Here</a>
+						 -->
 			    	</fieldset>
 			      	</form>
 			    </div>
