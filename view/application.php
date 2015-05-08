@@ -26,7 +26,7 @@ CS4320
     <link href="http://fonts.googleapis.com/css?family=Andada" rel="stylesheet" type="text/css">
     <link href="styles/main.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
-    <script type="text/javascript" src="validate.min.js"></script>
+    <script type="text/javascript" src="http://rickharrison.github.io/validate.js/validate.min.js"></script>
 </head>
 
 <body role="document" onload="classArray()">
