@@ -20,7 +20,7 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Pending Apps</title>
+    <title>Assigned Applications</title>
 
  <!-- Bootstrap core CSS -->
     <link href="https://babbage.cs.missouri.edu/~skhhdc/cs2830/finalProject/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -28,11 +28,10 @@
     <link href="https://babbage.cs.missouri.edu/~skhhdc/cs2830/finalProject/dist/css/bootstrap-theme.min.css" rel="stylesheet">
 
 <script>
-function clickAction(form, save_action, pk, coursenum, action)
+function clickAction(form, save_action, pk, action)
 {
   document.forms[form].elements['save_action'].value = save_action;
   document.forms[form].elements['pk'].value = pk;
-  document.forms[form].elements['coursenum'].value = coursenum;
   document.forms[form].elements['action'].value = action;
   document.getElementById(form).submit();
 }
@@ -71,8 +70,8 @@ function clickAction(form, save_action, pk, coursenum, action)
           <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
               <li><a href="https://groupi-softwareeng.rhcloud.com/View/admindashboard.php">Home</a></li>
-              <li class = "active"><a href="https://groupi-softwareeng.rhcloud.com/View/pendingapps.php">Pending Apps</a></li>
-			  <li ><a href="https://groupi-softwareeng.rhcloud.com/View/assignedapps.php">Assigned Apps</a></li>
+              <li ><a href="https://groupi-softwareeng.rhcloud.com/View/pendingapps.php">Pending Apps</a></li>
+              <li class = "active"><a href="https://groupi-softwareeng.rhcloud.com/View/assignedapps.php">Assigned Apps</a></li>
 			  <li ><a href="https://groupi-softwareeng.rhcloud.com/View/deniedapps.php">Denied Apps</a></li>
 			  <li><a href = "https://groupi-softwareeng.rhcloud.com/Controller/profregistration.php">Register Teacher</a></li>
 			  <li><a href="https://groupi-softwareeng.rhcloud.com/Controller/editTimewindow.php"><span></span>Timewindow</a></li>
@@ -88,18 +87,17 @@ function clickAction(form, save_action, pk, coursenum, action)
 
   <div class="panel panel-default">
   <!-- Default panel contents -->
-  <div class="panel-heading">Pending Applications</div>
+  <div class="panel-heading">Assigned Applications</div>
   <?php
 	$dbconn = pg_connect("host=/var/lib/openshift/5527ddbb5973cacee00000e9/postgresql/socket/ dbname=groupi user=adminup8hecl password=evnEWGkla94u") or die('Could not connect to database: '.pg_last_error());
 	$query = 'select username as pawprint, fname as first_name, lname as Last_name, courseNum as Desired, grade, status, rating as rank, comments from users.user_info inner join users.applicantWants using(username) where status = $1 order by courseNum asc';
-	$result = pg_prepare($dbconn, "getPending", $query) or die("could not prepare getPending statement: ".pg_last_error());
-	$result = pg_execute($dbconn, "getPending", array('Pending')) or die("could not execute get pending statement: ".pg_last_error());
+	$result = pg_prepare($dbconn, "getApproved", $query) or die("could not prepare getApproved statement: ".pg_last_error());
+	$result = pg_execute($dbconn, "getApproved", array('Approved')) or die("could not execute getApproved statement: ".pg_last_error());
 	$columns = pg_num_fields($result);
 	
 	echo "<form id=\"action_form\" method=\"POST\" action=\"https://groupi-softwareeng.rhcloud.com/Controller/exec.php\">";
 	echo "\t<input type=\"hidden\" name=\"save_action\" />\n";
 	echo "\t<input type=\"hidden\" name=\"pk\" />\n";
-	echo "\t<input type=\"hidden\" name=\"coursenum\"/>\n";
 	echo "\t<input type=\"hidden\" name=\"action\" />\n";
 	echo "</form>";
 
@@ -120,10 +118,8 @@ function clickAction(form, save_action, pk, coursenum, action)
 		echo "\t<tr>\n";
 		echo "<td> $app_num </td>";
 		$app_num++;
-		echo "<td><input type=\"button\" value=\"Assign\" onclick=\"clickAction('action_form','assign','".$line['pawprint']."', '".$line['desired']."', 'assign')\" />";
-		echo "<input type=\"button\" value=\"Edit\" onclick=\"clickAction('action_form','edit','".$line['pawprint']."', '".$line['desired']."','edit')\" />";
-		echo "<input type=\"button\" value=\"Deny\" onclick=\"clickAction('action_form','deny','".$line['pawprint']."','".$line['desired']."','deny')\" />";
-		echo "<input type=\"button\" value=\"Delete User\" onclick=\"clickAction('action_form','remove','".$line['pawprint']."', '".$line['desired']."','remove')\" /></td>";
+		echo "<td><input type=\"button\" value=\"Edit\" onclick=\"clickAction('action_form','edit','".$line['pawprint']."','".$line['desired']."','edit')\" />";
+		echo "<input type=\"button\" value=\"Unassign\" onclick=\"clickAction('action_form','unassign','".$line['pawprint']."','".$line['desired']."','unassign')\" /></td>";
 		
 		foreach($line as $col_value){
 			echo "\t\t<td>$col_value</td>\n";
