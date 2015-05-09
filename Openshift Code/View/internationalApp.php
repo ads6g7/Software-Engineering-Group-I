@@ -143,15 +143,7 @@
 
 </div>
 </nav>
-<script language="JavaScript" type="text/javascript"
-    xml:space="preserve">//<![CDATA[
-//You should create the validator only after the definition of the HTML form
-  var frmvalidator  = new Validator("internationalform");
-  frmvalidator.addValidation("graddate","minlen=8","Date must be 8 characters");
-  frmvalidator.addValidation("graddate","maxlen=8","Date must be 8 characters");
-  frmvalidator.addValidation("graddate","req","Graduation Date is required");
-  frmvalidator.addValidation("graddate","numeric","Graduation date must contain numbers only");
-//]]></script>
+
 </html>
 
 <?php

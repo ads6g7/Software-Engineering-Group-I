@@ -28,10 +28,11 @@
     <link href="https://babbage.cs.missouri.edu/~skhhdc/cs2830/finalProject/dist/css/bootstrap-theme.min.css" rel="stylesheet">
 
 <script>
-function clickAction(form, save_action, pk, action)
+function clickAction(form, save_action, pk, coursenum, action)
 {
   document.forms[form].elements['save_action'].value = save_action;
   document.forms[form].elements['pk'].value = pk;
+  document.forms[form].elements['coursenum'].value = coursenum;
   document.forms[form].elements['action'].value = action;
   document.getElementById(form).submit();
 }
@@ -56,7 +57,7 @@ function clickAction(form, save_action, pk, action)
   </head>
 
   <body>
-<nav class="navbar-wrapper navbar-default navbar-fixed-top" role="navigation">
+<nav class="navbar navbar-default" role="navigation">
         <div class="container">
           <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -98,6 +99,7 @@ function clickAction(form, save_action, pk, action)
 	echo "<form id=\"action_form\" method=\"POST\" action=\"https://groupi-softwareeng.rhcloud.com/Controller/exec.php\">";
 	echo "\t<input type=\"hidden\" name=\"save_action\" />\n";
 	echo "\t<input type=\"hidden\" name=\"pk\" />\n";
+	echo "\t<input type=\"hidden\" name=\"coursenum\"/>\n";
 	echo "\t<input type=\"hidden\" name=\"action\" />\n";
 	echo "</form>";
 
@@ -118,8 +120,8 @@ function clickAction(form, save_action, pk, action)
 		echo "\t<tr>\n";
 		echo "<td> $app_num </td>";
 		$app_num++;
-		echo "<td><input type=\"button\" value=\"Edit\" onclick=\"clickAction('action_form','edit','".$line['pawprint']."','".$line['desired']."','edit')\" />";
-		echo "<input type=\"button\" value=\"Unassign\" onclick=\"clickAction('action_form','unassign','".$line['pawprint']."','".$line['desired']."','unassign')\" /></td>";
+		echo "<td><input type=\"button\" value=\"Edit\" onclick=\"clickAction('action_form','edit','".$line['pawprint']."', '".$line['desired']."', 'edit')\" />";
+		echo "<input type=\"button\" value=\"Unassign\" onclick=\"clickAction('action_form','unassign','".$line['pawprint']."', '".$line['desired']."', 'unassign')\" /></td>";
 		
 		foreach($line as $col_value){
 			echo "\t\t<td>$col_value</td>\n";
