@@ -49,8 +49,7 @@
  <!--Form Validation-->
     <link href="http://fonts.googleapis.com/css?family=Andada" rel="stylesheet" type="text/css">
     <link href="styles/main.css" rel="stylesheet" type="text/css" />
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
-    <script type="text/javascript" src="https://rickharrison.github.io/validate.js/validate.min.js"></script>
+	<script language="JavaScript" src="https://babbage.cs.missouri.edu/~skhhdc/cs2830/finalProject/dist/js/gen_validatorv4.js" type="text/javascript" xml:space="preserve"></script>
 </head>
 <body>
  <div class="navbar-wrapper navbar-default navbar-fixed-top" role="navigation">
@@ -86,7 +85,7 @@
 		  <br> 
 		
 
-			<form method = 'POST' action = "<?= $_SERVER['PHP_SELF']?>">
+			<form name = "regform" id = "regform" method = 'POST' action = "<?= $_SERVER['PHP_SELF']?>">
 			Username: <input type = 'text' id='username' placeholder='Pawprint' name = 'username' /><br />
 			First Name: <input type = 'text' id='fname' placeholder='First Name' name = 'fname' /><br />
 			Last Name: <input type = 'text' id='lname' placeholder='Last Name' name = 'lname' /><br />
@@ -136,7 +135,7 @@
 				$error = 'Username is already taken.';
 				echo "<div id = out>$error</div>";
 			}
-			else if($password == $passConfirm){
+			else if($password === $passConfirm){
 				mt_srand();
 				$salt = sha1(mt_rand());
 				$passwordHash = sha1($salt . $password);
@@ -148,10 +147,9 @@
 				$result = pg_prepare($dbconn, "auth", 'INSERT INTO users.authentication VALUES($1, $2, $3);') or die('Invalid auth query' . pg_last_error());
 				$result = pg_execute($dbconn, "auth", array($username, $passwordHash, $salt)) or die('Couldn\'t insert the values into authenticate: ' . pg_last_error());
 				
-				//$ip = $_SERVER['REMOTE_ADDR'];
-				//pg_prepare($dbconn, "log in", 'INSERT INTO users.log VALUES(DEFAULT, $1, $2, DEFAULT, $3);') or die('Invalid log in query'. pg_last_error());
-				//pg_prepare($dbconn, "log in", array($username, $ip_address, 'registration')) or die('Couldn\'t insert the values into log in: ' . pg_last_error());
-			
+				session_start();
+				$_SESSION['USERNAME'] = $username;
+				header("Location:https://groupi-softwareeng.rhcloud.com/View/application.php");
 			}
 			else if($password != $passConfirm){
 				$error = 'Passwords do not match';
@@ -167,84 +165,23 @@
 		}
 	}
 ?>
+<script language="JavaScript" type="text/javascript"
+    xml:space="preserve">//<![CDATA[
+//You should create the validator only after the definition of the HTML form
+  var frmvalidator  = new Validator("regform");
+  frmvalidator.addValidation("username","req","Username is required");
+  frmvalidator.addValidation("fname","req","First Name is required");
+  frmvalidator.addValidation("lname","req","Last Name is required");
+  frmvalidator.addValidation("email","email","Must be a valid email");
 
-<script type="text/javascript">
+  frmvalidator.addValidation("phone","req","Phone Number is required");
+  frmvalidator.addValidation("phone","num","Phone Number must be numbers");
 
-new FormValidator('appform', [{
-    name: 'username',
-    display: 'username',
-    rules: 'required|exact_length[6]'
-}, {
-    name: 'fname',
-	display: 'first name',
-    rules: 'required'
-}, {
-    name: 'lname',
-	display: 'last name',
-    rules: 'required'
-}, {
-    name: 'email',
-	display: 'email',
-    rules: 'valid_email'
-}, {
-    name: 'phone',
-    display: 'phone',
-    rules: 'exact_length[10]'
-}, {
-    name: 'password',
-    rules: 'required'
-}, {
-    name: 'password_confirm',
-    display: 'password confirmation',
-    rules: 'required|matches[password]'
-}], function(errors, evt) {
-
-    var SELECTOR_ERRORS = $('.error_box'),
-        SELECTOR_SUCCESS = $('.success_box');
-
-    if (errors.length > 0) {
-        SELECTOR_ERRORS.empty();
-
-        for (var i = 0, errorLength = errors.length; i < errorLength; i++) {
-            SELECTOR_ERRORS.append("✘ " + errors[i].message + '<br />');
-        }
-
-        SELECTOR_SUCCESS.css({ display: 'none' });
-        SELECTOR_ERRORS.fadeIn(200);
-    } else {
-        SELECTOR_ERRORS.css({ display: 'none' });
-        SELECTOR_SUCCESS.fadeIn(200);
-		$success = 'User was created successfully';
-		echo "<div id = out>$success</div>";
-		
-		session_start();
-		$_SESSION['USERNAME'] = $username;
-		$redirect = "https://groupi-softwareeng.rhcloud.com/View/application.php";
-		header("Location: $redirect");
-    }
-
-    if (evt && evt.preventDefault) {
-        evt.preventDefault();
-    } else if (event) {
-        event.returnValue = false;
-    }
-});
-
-</script>
-
-<script type="text/javascript">
-
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-26362841-1']);
-  _gaq.push(['_trackPageview']);
-
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-
-</script>
+  frmvalidator.addValidation("password","req","Password is required");
+  frmvalidator.addValidation("password","neelmnt=username","The password should not be same as username");
+  frmvalidator.addValidation("password_confirm","confpassword","eqelmnt=password","Passwords must match");
+  
+//]]></script>
 
 </body>
 </html>

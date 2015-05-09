@@ -68,7 +68,7 @@
 		}
 	}		
 	else{
-		//session_start();
+		session_start();
 		$_SESSION['INVALID_LOGIN'] = 'notValid';
 		header("Location: https://groupi-softwareeng.rhcloud.com");
 	}

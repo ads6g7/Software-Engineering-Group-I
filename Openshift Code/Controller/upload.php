@@ -16,6 +16,18 @@ if(!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS']== ""){
 $conn=pg_connect("host=/var/lib/openshift/5527ddbb5973cacee00000e9/postgresql/socket/ dbname=groupi user=adminup8hecl password=evnEWGkla94u") or die('Unable to connect to database' .pg_last_error());
 //$conn =pg_connect(HOST ." ". DBNAME." ".USERNAME." ".PASSWORD) OR DIE('This is ridiculous');
 $username = $_SESSION['USERNAME'];
+/* $studentID=htmlspecialchars($_SESSION['id']);
+$prevPos=htmlspecialchars($_SESSION['prev']);
+$currPos=htmlspecialchars($_SESSION['curr']);
+$wantPos=($_SESSION['select']);
+$gpa=htmlspecialchars($_SESSION['gpa']);
+$gradDate=htmlspecialchars($_SESSION['gradDate']);
+$advisor=htmlspecialchars($_SESSION['advisor']);
+$degree=htmlspecialchars($_SESSION['degreetype']);
+$grad=htmlspecialchars($_SESSION['gradstudent']);
+$international=htmlspecialchars($_SESSION['international']);
+$major=htmlspecialchars($_SESSION['major']);
+$gato=htmlspecialchars($_SESSION['gato']); */
 $studentID=htmlspecialchars($_POST['id']);
 $prevPos=htmlspecialchars($_POST['prev']);
 $currPos=htmlspecialchars($_POST['curr']);
@@ -65,15 +77,15 @@ if ($uploadOk == 0) {
 }
 
 $result=pg_prepare($conn, 'application','INSERT INTO users.applications VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)') or die ('Prepare count failed: ' .pg_last_error());
-$aliveResult = pg_execute($conn, 'application', array($username, $studentID, $major, $gradDate, $prevPos, $currPos, $gpa, $grad, $degree, $advisor, $international, $gato)) or die ('Execute count failed: '.pg_last_error());
+$aliveResult = pg_execute($conn, 'application', array($username, intval($studentID), $major, $gradDate, $prevPos, $currPos, $gpa, $grad, $degree, $advisor, $international, $gato)) or die ('Execute count failed: '.pg_last_error());
 //get the binary file based on the filename
 $data=file_get_contents('$_FILES["fileToUpload"]["name"]');
 //escape the binary data
-$escaped = bin2hex( $data );
+$escaped = base64_encode( $data );
 //Insert into database
-//pg_query("UPDATE users.applications SET filename='testing', pdf=decode('{$escaped}', 'hex') WHERE username='$username'") or die('Error: '.pg_last_error());
-pg_prepare($conn, 'updateresume', "update users.applications set filename = $1, pdf = decode('{$escaped}', 'hex') where username = $2") or die("Issue with updateresume prepared".pg_last_error());
-$result = pg_execute($conn, 'updateresume', array($target_file, $username)) or die('Error with updating the files: '.pg_last_error());
+pg_query("UPDATE users.applications SET filename='".$target_file."', pdf=decode('{$escaped}', 'base64') WHERE username='".$username."'") or die('Error: '.pg_last_error());
+//pg_prepare($conn, 'updateresume', "update users.applications set filename = $1, pdf = decode('{$escaped}', 'hex') where username = $2") or die("Issue with updateresume prepared".pg_last_error());
+//$result = pg_execute($conn, 'updateresume', array($target_file, $username)) or die('Error with updating the files: '.pg_last_error());
 $redirect = "https://groupi-softwareeng.rhcloud.com/View/applicantWants.php";
 header("Location: $redirect");
 ?>

@@ -49,6 +49,8 @@
 		text-align:center;
 		}
 	</style>
+		<!--Form Validation-->
+		<script language="JavaScript" src="https://babbage.cs.missouri.edu/~skhhdc/cs2830/finalProject/dist/js/gen_validatorv4.js" type="text/javascript" xml:space="preserve"></script>
 </head>
 <body><nav class="navbar-wrapper navbar-default navbar-fixed-top" role="navigation">
         <div class="container">
@@ -65,6 +67,8 @@
             <ul class="nav navbar-nav">
               <li ><a href="https://groupi-softwareeng.rhcloud.com/View/admindashboard.php">Home</a></li>
               <li><a href="https://groupi-softwareeng.rhcloud.com/View/pendingapps.php">Pending Apps</a></li>
+			  <li ><a href="https://groupi-softwareeng.rhcloud.com/View/assignedapps.php">Assigned Apps</a></li>
+			  <li ><a href="https://groupi-softwareeng.rhcloud.com/View/deniedapps.php">Denied Apps</a></li>
 			  <li class="active"><a href = "https://groupi-softwareeng.rhcloud.com/Controller/profregistration.php">Register Teacher</a></li>
 			  <li><a href="https://groupi-softwareeng.rhcloud.com/Controller/editTimewindow.php"><span></span>Timewindow</a></li>
 			  <li ><a href="https://groupi-softwareeng.rhcloud.com/Controller/logout.php"><span ></span>Logout</a></li>
@@ -85,7 +89,7 @@
             </div>
           </div>
 		  <br> 
-			<form method = 'POST' action = "<?= $_SERVER['PHP_SELF']?>">
+			<form name="appform" method = 'POST' action = "<?= $_SERVER['PHP_SELF']?>">
 			Username: <input type = text placeholder = 'Pawprint' name = 'username' /><br />
 			First Name: <input type = 'text' placeholder = 'First Name' name = 'fname' /><br />
 			Last Name: <input type = 'text' placeholder = 'Last Name' name = 'lname' /><br />
@@ -170,5 +174,25 @@
 		}
 	}
 ?>
+<!--Validation -->
+<script language="JavaScript" type="text/javascript"
+    xml:space="preserve">//<![CDATA[
+//You should create the validator only after the definition of the HTML form
+  var frmvalidator  = new Validator("appform");
+  frmvalidator.addValidation("username","req","Username is required");
+  frmvalidator.addValidation("fname","req","First Name is required");
+  frmvalidator.addValidation("lname","req","Last Name is required");
+  frmvalidator.addValidation("email","email","Must be a valid email");
+
+  frmvalidator.addValidation("phone","req","Phone Number is required");
+  frmvalidator.addValidation("phone","num","Phone Number must be numbers");
+  
+  frmvalidator.addValidation("courseid","req","Course ID is required");
+  
+  frmvalidator.addValidation("password","req","Password is required");
+  frmvalidator.addValidation("password","neelmnt=username","The password should not be same as username");
+  frmvalidator.addValidation("password_confirm","confpassword","eqelmnt=password","Passwords must match");
+  
+//]]></script>
 </body>
 </html>

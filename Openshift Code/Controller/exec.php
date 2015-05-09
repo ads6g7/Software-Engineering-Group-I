@@ -5,6 +5,7 @@
 	if(isset($_POST['action'])){
 		$save_action = htmlspecialchars($_POST['save_action']);
 		$username = htmlspecialchars($_POST['pk']);
+		$coursenum = htmlspecialchars($_POST['coursenum']);
 		$action = htmlspecialchars($_POST['action']);
 	}
 	if($action == 'edit'){
@@ -15,6 +16,12 @@
 	}
 	else if($action == 'assign'){
 		echo "<title>Assign TA</title>";
+	}
+	else if($action == 'unassign'){
+		echo "<title>Unassign TA</title>";
+	}
+	else if($action == 'deny'){
+		echo "<title>Deny TA</title>";
 	}
 	
 	session_start();
@@ -34,7 +41,6 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Instructor Home</title>
 
 	<!-- Bootstrap core CSS -->
     <link href="https://babbage.cs.missouri.edu/~skhhdc/cs2830/finalProject/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -60,7 +66,7 @@
   </head>
 
   <body>
-<nav class="navbar-wrapper navbar-default navbar-fixed-top" role="navigation">
+<nav class="navbar navbar-default" role="navigation">
         <div class="container">
           <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -73,11 +79,13 @@
           </div>
           <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-              <li><a href="https://groupi-softwareeng.rhcloud.com/View/admindashboard.php">Home</a></li>
-              <li class = "active"><a href="https://groupi-softwareeng.rhcloud.com/View/pendingapps.php">Pending Apps</a></li>
+              <li ><a href="https://groupi-softwareeng.rhcloud.com/View/admindashboard.php">Home</a></li>
+              <li><a href="https://groupi-softwareeng.rhcloud.com/View/pendingapps.php">Pending Apps</a></li>
+			  <li ><a href="https://groupi-softwareeng.rhcloud.com/View/assignedapps.php">Assigned Apps</a></li>
+			  <li ><a href="https://groupi-softwareeng.rhcloud.com/View/deniedapps.php">Denied Apps</a></li>
 			  <li><a href = "https://groupi-softwareeng.rhcloud.com/Controller/profregistration.php">Register Teacher</a></li>
 			  <li><a href="https://groupi-softwareeng.rhcloud.com/Controller/editTimewindow.php"><span></span>Timewindow</a></li>
-	      <li ><a href="https://groupi-softwareeng.rhcloud.com/Controller/logout.php"><span ></span>Logout</a></li>
+			  <li ><a href="https://groupi-softwareeng.rhcloud.com/Controller/logout.php"><span ></span>Logout</a></li>
         </div>
       </div>
       
@@ -100,14 +108,15 @@
 			echo "<!-- Default panel contents -->";
 			echo "<div class=\"panel-heading\"><center>Assign TA</center></div>";
 			
-			$query = 'select username as pawprint, fname as First, lname as Last, rating, courseNum as Desired from users.applicantWants inner join users.user_info using(username) where username = $1';			
+			$query = 'select username as pawprint, fname as First, lname as Last, rating, courseNum as Desired from users.applicantWants inner join users.user_info using(username) where username = $1 and courseNum=$2';			
 			$result = pg_prepare($dbconn, 'assignQuery', $query) or die("Could not prepare assignQuery:".pg_last_error());
-			$result = pg_execute($dbconn, 'assignQuery', array($username)) or die ("could not execute assignQuery: ".pg_last_error());
+			$result = pg_execute($dbconn, 'assignQuery', array($username, $coursenum)) or die ("could not execute assignQuery: ".pg_last_error());
 			$num_columns = pg_num_fields($result);
 			$selected = pg_fetch_array($result, NULL, PGSQL_NUM);
 			
 			echo "<input type=\"hidden\" name=\"save_action\" value=\"" . $save_action. "\">";
 			echo "<input type=\"hidden\" name=\"pk\" value=\"" . $username. "\">";
+			echo "<input type=\"hidden\" name=\"coursenum\" value=\"" . $coursenum. "\">";
 			echo "<table class=\"table\">\n";
 				for($i=0;$i<$num_columns;$i++){
 					echo ("<tr><td>" .pg_field_name($result,$i). "</td><td>" .$selected[$i]. "</td>");
@@ -115,9 +124,8 @@
 			echo "<tr><td> Status </td><td> Approved </td>";
 			echo "</table>\n";
 			echo "<input type=\"submit\" name=\"save\" value=\"Save\">";
-			echo "<input type=\"button\" name=\"cancel\" value=\"Cancel\" onclick = \"top.location.href = 'https://groupi-softwareeng.rhcloud.com/View/pendingapps.php'\">";
+			echo "<input type=\"button\" name=\"cancel\" value=\"Cancel\" onclick = \"top.location.href = 'https://groupi-softwareeng.rhcloud.com/View/admindashboard.php'\">";
 			echo "</form>\n";
-			
 		}
 		else if($action == 'edit'){
 			echo "<div class=\"panel panel-default\">
@@ -125,13 +133,14 @@
 				  <div class=\"panel-heading\"><center>Edit TA</center></div>";
 				  
 			$query = 'select username, fname as First, lname as Last, email, rating, comments from users.user_info where username = $1';
-			$result = pg_prepare($dbconn, 'editQuery',$query)or die("Could not prepare editQuery:".pg_last_error());
+			$result = pg_prepare($dbconn, 'editQuery', $query)or die("Could not prepare editQuery:".pg_last_error());
 			$result = pg_execute($dbconn, 'editQuery', array($username)) or die ("could not execute editQuery: ".pg_last_error());
 			$num_columns = pg_num_fields($result);
 			$selected = pg_fetch_array($result, NULL, PGSQL_NUM);
 			
 			echo "<input type=\"hidden\" name=\"save_action\" value=\"" . $save_action. "\">";
 			echo "<input type=\"hidden\" name=\"pk\" value=\"" . $username. "\">";
+			echo "<input type=\"hidden\" name=\"coursenum\" value=\"" . $coursenum. "\">";
 			echo "<table class=\"table\">\n";
 				for($i=0;$i<$num_columns;$i++){
 					if(pg_field_name($result, $i) == 'rating' || pg_field_name($result, $i) == 'comments'){
@@ -143,28 +152,77 @@
 				}
 			echo "</table>\n";
 			echo "<input type=\"submit\" name=\"save\" value=\"Save\">";
-			echo "<input type=\"button\" name=\"cancel\" value=\"Cancel\" onclick = \"top.location.href = 'https://groupi-softwareeng.rhcloud.com/View/pendingapps.php'\">";
+			echo "<input type=\"button\" name=\"cancel\" value=\"Cancel\" onclick = \"top.location.href = 'https://groupi-softwareeng.rhcloud.com/View/admindashboard.php'\">";
 			echo "</form>\n";		
 		}
 		else if($action == 'remove'){
-			echo "Are you sure you want to remove the user ( <strong>".$username."</strong> )from the database?\n";
+			echo "Are you sure you want to completely remove the user's ( <strong>".$username."</strong> ) application from the database?\n";
 			echo "<input type=\"hidden\" name=\"save_action\" value=\"" . $save_action. "\">";
 			echo "<input type=\"hidden\" name=\"pk\" value=\"" . $username. "\">";
+			echo "<input type=\"hidden\" name=\"coursenum\" value=\"" . $coursenum. "\">";
 			
 			echo "<input type=\"submit\" name=\"save\" value=\"Save\">";
-			echo "<input type=\"button\" name=\"cancel\" value=\"Cancel\" onclick = \"top.location.href = 'https://groupi-softwareeng.rhcloud.com/View/pendingapps.php'\">";
+			echo "<input type=\"button\" name=\"cancel\" value=\"Cancel\" onclick = \"top.location.href = 'https://groupi-softwareeng.rhcloud.com/View/admindashboard.php'\">";
+		}
+		else if($action == 'unassign'){
+		    echo "<div class=\"panel panel-default\">";
+			echo "<!-- Default panel contents -->";
+			echo "<div class=\"panel-heading\"><center>Unassign TA</center></div>";
+						
+			$query = 'select username as pawprint, fname as First, lname as Last, rating, courseNum as Desired from users.applicantWants inner join users.user_info using(username) where username = $1 and courseNum = $2';			
+			$result = pg_prepare($dbconn, 'unassignQuery', $query) or die("Could not prepare unassignQuery:".pg_last_error());
+			$result = pg_execute($dbconn, 'unassignQuery', array($username, $coursenum)) or die ("could not execute unassignQuery: ".pg_last_error());
+			$num_columns = pg_num_fields($result);
+			$selected = pg_fetch_array($result, NULL, PGSQL_NUM);
+			
+			echo "<input type=\"hidden\" name=\"save_action\" value=\"" . $save_action. "\">";
+			echo "<input type=\"hidden\" name=\"pk\" value=\"" . $username. "\">";
+			echo "<input type=\"hidden\" name=\"coursenum\" value=\"" . $coursenum. "\">";
+			echo "<table class=\"table\">\n";
+				for($i=0;$i<$num_columns;$i++){
+					echo ("<tr><td>" .pg_field_name($result,$i). "</td><td>" .$selected[$i]. "</td>");
+				}
+			echo "<tr><td> Status </td><td> Pending </td>";
+			echo "</table>\n";
+			echo "<input type=\"submit\" name=\"save\" value=\"Save\">";
+			echo "<input type=\"button\" name=\"cancel\" value=\"Cancel\" onclick = \"top.location.href = 'https://groupi-softwareeng.rhcloud.com/View/admindashboard.php'\">";
+			echo "</form>\n";
+		}
+		else if($action == 'deny'){
+		    echo "<div class=\"panel panel-default\">";
+			echo "<!-- Default panel contents -->";
+			echo "<div class=\"panel-heading\"><center>Unassign TA</center></div>";
+			
+			$query = 'select username as pawprint, fname as First, lname as Last, rating, courseNum as Desired from users.applicantWants inner join users.user_info using(username) where username = $1 and courseNum=$2';			
+			$result = pg_prepare($dbconn, 'denyQuery', $query) or die("Could not prepare assignQuery:".pg_last_error());
+			$result = pg_execute($dbconn, 'denyQuery', array($username,$coursenum)) or die ("could not execute assignQuery: ".pg_last_error());
+			$num_columns = pg_num_fields($result);
+			$selected = pg_fetch_array($result, NULL, PGSQL_NUM);
+			
+			echo "<input type=\"hidden\" name=\"save_action\" value=\"" . $save_action. "\">";
+			echo "<input type=\"hidden\" name=\"pk\" value=\"" . $username. "\">";
+			echo "<input type=\"hidden\" name=\"coursenum\" value=\"" . $coursenum. "\">";
+			echo "<table class=\"table\">\n";
+				for($i=0;$i<$num_columns;$i++){
+					echo ("<tr><td>" .pg_field_name($result,$i). "</td><td>" .$selected[$i]. "</td>");
+				}
+			echo "<tr><td> Status </td><td> Denied </td>";
+			echo "</table>\n";
+			echo "<input type=\"submit\" name=\"save\" value=\"Save\">";
+			echo "<input type=\"button\" name=\"cancel\" value=\"Cancel\" onclick = \"top.location.href = 'https://groupi-softwareeng.rhcloud.com/View/admindashboard.php'\">";
+			echo "</form>\n";
 		}
 	}
 	
 	if(isset($_POST['save'])){
 		$username = htmlspecialchars($_POST['pk']);
 		$save_action = htmlspecialchars($_POST['save_action']);
+		$coursenum = htmlspecialchars($_POST['coursenum']);
 		
-		if($save_action == 'assign'){
-			$coursenum = htmlspecialchars($_POST['courseNum']);
+		if($save_action == 'assign'){	
 			$query = 'update users.applicantWants set status=$1 where username = $2 and courseNum=$3';
-			$result = pg_prepare($dbconn, 'assignUpdate', $query) or die("Couldn't prepare assignQuery statement:".pg_last_error());
-			$result = pg_execute($dbconn, 'assignUpdate', array('Accepted',$username,$coursenum)) or die("Couldn't execute assignQuery statement:".pg_last_error());
+			$result = pg_prepare($dbconn, 'assignUpdate', $query) or die("Couldn't prepare assignUpdate statement:".pg_last_error());
+			$result = pg_execute($dbconn, 'assignUpdate', array('Approved',$username, $coursenum)) or die("Couldn't execute assignUpdate statement:".pg_last_error());
 			echo "Update successful!\n";
 			echo "<br/>\n";
 			echo "<a href = \"https://groupi-softwareeng.rhcloud.com/View/pendingapps.php\">Return to Admin Dashboard</a>";
@@ -172,7 +230,6 @@
 		else if($save_action == 'edit'){
 			$rank = htmlspecialchars($_POST['rating']);
 			$comment = htmlspecialchars($_POST['comments']);
-			$coursenum = htmlspecialchars($_POST['courseNum']);
 			
 			$query = 'update users.user_info set rating = $1, comments = $2 where username = $3';
 			$result = pg_prepare($dbconn, 'editUpdate', $query) or die("could not prepare editUpdate: ".pg_last_error());
@@ -195,6 +252,22 @@
 			$result = pg_execute($dbconn, 'removeUpdate3', array($username)) or die("could not execute removeUpdate3 statement:".pg_last_error());
 			
 			echo "Delete successful!\n";
+			echo "<br/>\n";
+			echo "<a href = \"https://groupi-softwareeng.rhcloud.com/View/pendingapps.php\">Return to Admin Dashboard</a>";
+		}
+		else if($save_action == 'unassign'){
+		    $query = 'update users.applicantWants set status=$1 where username = $2 and courseNum=$3';
+			$result = pg_prepare($dbconn, 'unassignUpdate', $query) or die("Couldn't prepare unassignUpdate statement:".pg_last_error());
+			$result = pg_execute($dbconn, 'unassignUpdate', array('Pending',$username, $coursenum)) or die("Couldn't execute unassignUpdate statement:".pg_last_error());
+			echo "Update successful!\n";
+			echo "<br/>\n";
+			echo "<a href = \"https://groupi-softwareeng.rhcloud.com/View/pendingapps.php\">Return to Admin Dashboard</a>";
+		}
+		else if($save_action == 'deny'){
+		    $query = 'update users.applicantWants set status=$1 where username = $2 and courseNum=$3';
+			$result = pg_prepare($dbconn, 'denyUpdate', $query) or die("Couldn't prepare denyUpdate statement:".pg_last_error());
+			$result = pg_execute($dbconn, 'denyUpdate', array('Denied',$username, $coursenum)) or die("Couldn't execute denhyUpdate statement:".pg_last_error());
+			echo "Update successful!\n";
 			echo "<br/>\n";
 			echo "<a href = \"https://groupi-softwareeng.rhcloud.com/View/pendingapps.php\">Return to Admin Dashboard</a>";
 		}
