@@ -100,7 +100,7 @@
   </head>
 
   <body>
-<nav class="navbar-wrapper navbar-default navbar-fixed-top" role="navigation">
+<nav class="navbar navbar-default" role="navigation">
         <div class="container">
           <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -158,12 +158,9 @@
 		<br>
   <?php
 
-  //include("../secure/database.php");
-	//$dbconn=pg_connect(HOST." ".DBNAME." ".USERNAME." ".PASSWORD) or die('Could not connect: '.pg_last_error());
-    //$dbconn = pg_connect("host=dbhost-pgsql.cs.missouri.edu dbname=skhhdc user=skhhdc password=VP3RdwLt")
-	$dbconn = pg_connect("host=/var/lib/openshift/5527ddbb5973cacee00000e9/postgresql/socket/ dbname=groupi user=adminup8hecl password=evnEWGkla94u");
+	$dbconn = pg_connect("host=/var/lib/openshift/5527ddbb5973cacee00000e9/postgresql/socket/ dbname=groupi user=adminup8hecl password=evnEWGkla94u")
     //attempt to connect to database
-    //or die("Error - could not connect to database: " . pg_last_error());
+    or die("Error - could not connect to database: " . pg_last_error());
     //display error if connection is unsuccessful
 
     $choice = $_POST['searchby'];

@@ -20,7 +20,7 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Applicant Home</title>
+    <title>Pending Apps</title>
 
  <!-- Bootstrap core CSS -->
     <link href="https://babbage.cs.missouri.edu/~skhhdc/cs2830/finalProject/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -28,10 +28,11 @@
     <link href="https://babbage.cs.missouri.edu/~skhhdc/cs2830/finalProject/dist/css/bootstrap-theme.min.css" rel="stylesheet">
 
 <script>
-function clickAction(form, save_action, pk, action)
+function clickAction(form, save_action, pk, coursenum, action)
 {
   document.forms[form].elements['save_action'].value = save_action;
   document.forms[form].elements['pk'].value = pk;
+  document.forms[form].elements['coursenum'].value = coursenum;
   document.forms[form].elements['action'].value = action;
   document.getElementById(form).submit();
 }
@@ -71,6 +72,8 @@ function clickAction(form, save_action, pk, action)
             <ul class="nav navbar-nav">
               <li><a href="https://groupi-softwareeng.rhcloud.com/View/admindashboard.php">Home</a></li>
               <li class = "active"><a href="https://groupi-softwareeng.rhcloud.com/View/pendingapps.php">Pending Apps</a></li>
+			  <li ><a href="https://groupi-softwareeng.rhcloud.com/View/assignedapps.php">Assigned Apps</a></li>
+			  <li ><a href="https://groupi-softwareeng.rhcloud.com/View/deniedapps.php">Denied Apps</a></li>
 			  <li><a href = "https://groupi-softwareeng.rhcloud.com/Controller/profregistration.php">Register Teacher</a></li>
 			  <li><a href="https://groupi-softwareeng.rhcloud.com/Controller/editTimewindow.php"><span></span>Timewindow</a></li>
 	      <li ><a href="https://groupi-softwareeng.rhcloud.com/Controller/logout.php"><span ></span>Logout</a></li>
@@ -96,6 +99,7 @@ function clickAction(form, save_action, pk, action)
 	echo "<form id=\"action_form\" method=\"POST\" action=\"https://groupi-softwareeng.rhcloud.com/Controller/exec.php\">";
 	echo "\t<input type=\"hidden\" name=\"save_action\" />\n";
 	echo "\t<input type=\"hidden\" name=\"pk\" />\n";
+	echo "\t<input type=\"hidden\" name=\"coursenum\"/>\n";
 	echo "\t<input type=\"hidden\" name=\"action\" />\n";
 	echo "</form>";
 
@@ -116,9 +120,10 @@ function clickAction(form, save_action, pk, action)
 		echo "\t<tr>\n";
 		echo "<td> $app_num </td>";
 		$app_num++;
-		echo "<td><input type=\"button\" value=\"Assign\" onclick=\"clickAction('action_form','assign','".$line['pawprint']."', 'assign')\" />";
-		echo "<input type=\"button\" value=\"Edit\" onclick=\"clickAction('action_form','edit','".$line['pawprint']."','edit')\" />";
-		echo "<input type=\"button\" value=\"Delete User\" onclick=\"clickAction('action_form','remove','".$line['pawprint']."','remove')\" /></td>";
+		echo "<td><input type=\"button\" value=\"Assign\" onclick=\"clickAction('action_form','assign','".$line['pawprint']."', '".$line['desired']."', 'assign')\" />";
+		echo "<input type=\"button\" value=\"Edit\" onclick=\"clickAction('action_form','edit','".$line['pawprint']."', '".$line['desired']."','edit')\" />";
+		echo "<input type=\"button\" value=\"Deny\" onclick=\"clickAction('action_form','deny','".$line['pawprint']."','".$line['desired']."','deny')\" />";
+		echo "<input type=\"button\" value=\"Delete User\" onclick=\"clickAction('action_form','remove','".$line['pawprint']."', '".$line['desired']."','remove')\" /></td>";
 		
 		foreach($line as $col_value){
 			echo "\t\t<td>$col_value</td>\n";

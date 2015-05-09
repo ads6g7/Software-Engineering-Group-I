@@ -19,6 +19,35 @@
 		$redirect = "https://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 		header("Location: $redirect");
 	}
+	
+	$dbconn = pg_connect("host=/var/lib/openshift/5527ddbb5973cacee00000e9/postgresql/socket/ dbname=groupi user=adminup8hecl password=evnEWGkla94u") or die('Unable to connect to database' .pg_last_error());
+
+	$result=pg_query("SELECT * FROM users.timewindow") or die('Unable to execute' .pg_last_error());
+	$line = pg_fetch_array($result, null, PGSQL_ASSOC);
+	$studentStart = $line['userdatestart'];
+	$studentEnd = $line['userdateend'];
+	$teacherStart = $line['teacherdatestart'];
+	$teacherEnd = $line['teacherdateend'];
+
+	$username=$_SESSION['USERNAME'];
+	$today = date("Y-m-d");
+
+	$result = pg_prepare($dbconn, "Check", "select * from users.professors where username = $1");
+	$result = pg_execute($dbconn, "Check", array($username));
+	$rows=pg_num_rows($result);
+		
+	if (strtotime($studentStart) > strtotime($today) || strtotime($studentEnd) < strtotime($today) && $rows!=1)
+	{
+		echo "<div class=\"container\">
+				<div class=\"row\">
+				<div class=\"col-md-4 col-md-offset-4\">
+				<div class=\"panel panel-default\">
+				<div class=\"panel-heading\">
+				<div class=\"alert alert-danger\" role=\"alert\">
+				<span aria-hidden=\"true\"></span>
+				<span class=\"sr-only\"> Error:</span>✘ Time Window Closed</div>";
+				exit;
+	}
 ?>
 
 <html lang="en">
@@ -58,6 +87,8 @@
 	}
 
 </style>
+<!--Form Validation-->
+	<script language="JavaScript" src="https://babbage.cs.missouri.edu/~skhhdc/cs2830/finalProject/dist/js/gen_validatorv4.js" type="text/javascript" xml:space="preserve"></script>
 </head>
 <body>
     
@@ -84,33 +115,43 @@
               <h3 class="panel-title">International Application Information</h3>
             </div>
             <div class="panel-body">
-              <form method = 'POST' action = "<?= $_SERVER['PHP_SELF']?>">
-Prior to becoming a TA, any ITA (International Teaching Assistant) who received their primary and
-secondary education in a country where English is not the principal language are required by law to
-be assessed for English proficiency (SPEAK test). <br><br>If you do not register for and satisfy applicable
- language assessment requirements, you will not be eligible to accept a TA appointment.
-Arrangements for language assessments must be made before the end of the semester prior to
-accepting a TA position.
+              <form name= 'internationalform' method = 'POST' action = "<?= $_SERVER['PHP_SELF']?>">
+                Prior to becoming a TA, any ITA (International Teaching Assistant) who received their primary and
+                secondary education in a country where English is not the principal language are required by law to
+                be assessed for English proficiency (SPEAK test). <br><br>If you do not register for and satisfy applicable 
+                language assessment requirements, you will not be eligible to accept a TA appointment.
+                Arrangements for language assessments must be made before the end of the semester prior to
+                accepting a TA position.
             </div>
             </div>
             <h4>Have you met this requirement?</h4>
-            <input type = "radio" name = "speak" value = "true"/>Requirement met
-<input type = "radio" name = "speak" value = "false"/>Will attend in August/January <br/><br/>
-Date of SPEAK exam: <input type = 'text' placeholder = 'Exam Date' name = 'examdate'/> <br/><br/>
-Score of last SPEAK/OPT Exam (if applicable): <input type = 'text' placeholder = 'Exam Score' name = 'examscore'/> <br/><br>
-ONITA, is a requirement for all international TAs and PLAs who have not previously attended this
-orientation. You cannot have a TA/PLA appointment until this requirement has been met. (You do not
-need to attend more than once.) Have you met thes requirement? 
-<input type = "radio" name = "onita" value = "true"/>Requirement met
-<input type = "radio" name = "onita" value = "false"/>Will attend in August/January <br/><br/>
-<input type = 'submit' name = 'submit' value = 'Submit form'/><br/><br/>
+            <input type = "radio" name = "speak" value = "true" required/>Requirement met
+            <input type = "radio" name = "speak" value = "false"/>Will attend in August/January <br/><br/>
+            Date of SPEAK exam: 
+            <input type = 'date' placeholder = 'Exam Date' name = 'examdate'/> <br/><br/>
+            Score of last SPEAK/OPT Exam (if applicable): 
+            <input type = 'number' placeholder = 'Exam Score' min="0" max="100" name = 'examscore'/> <br/><br>
+            ONITA, is a requirement for all international TAs and PLAs who have not previously attended this
+            orientation. You cannot have a TA/PLA appointment until this requirement has been met. (You do not
+            need to attend more than once.) Have you met thes requirement? 
+            <input type = "radio" name = "onita" value = "true" required/>Requirement met
+            <input type = "radio" name = "onita" value = "false"/>Will attend in August/January <br/><br/>
+            <input type = 'submit' name = 'submit' value = 'Submit form'/><br/><br/>
 
 <br/><a href = "https://groupi-softwareeng.rhcloud.com/View/applicantWants.php">Back to Course Selection</a><br/>
 </form>
 
 </div>
 </nav>
-
+<script language="JavaScript" type="text/javascript"
+    xml:space="preserve">//<![CDATA[
+//You should create the validator only after the definition of the HTML form
+  var frmvalidator  = new Validator("internationalform");
+  frmvalidator.addValidation("graddate","minlen=8","Date must be 8 characters");
+  frmvalidator.addValidation("graddate","maxlen=8","Date must be 8 characters");
+  frmvalidator.addValidation("graddate","req","Graduation Date is required");
+  frmvalidator.addValidation("graddate","numeric","Graduation date must contain numbers only");
+//]]></script>
 </html>
 
 <?php

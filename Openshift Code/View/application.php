@@ -36,15 +36,13 @@ CS4320
 
     <!-- Custom styles for this template -->
     <link href="theme.css" rel="stylesheet">
+    <link href="styles/main.css" rel="stylesheet" type="text/css" />
 
 	<!--Form Validation-->
-    <link href="http://fonts.googleapis.com/css?family=Andada" rel="stylesheet" type="text/css">
-    <link href="styles/main.css" rel="stylesheet" type="text/css" />
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
-    <script type="text/javascript" src="https://rickharrison.github.io/validate.js/validate.min.js"></script>
-	
+	<script language="JavaScript" src="https://babbage.cs.missouri.edu/~skhhdc/cs2830/finalProject/dist/js/gen_validatorv4.js" type="text/javascript" xml:space="preserve"></script>
+
 	<?php
-	$conn = pg_connect("host=/var/lib/openshift/5527ddbb5973cacee00000e9/postgresql/socket/ dbname=groupi user=adminup8hecl password=evnEWGkla94u") or die('Unable to connect to database' .pg_last_error());
+	$dbconn = pg_connect("host=/var/lib/openshift/5527ddbb5973cacee00000e9/postgresql/socket/ dbname=groupi user=adminup8hecl password=evnEWGkla94u") or die('Unable to connect to database' .pg_last_error());
 
 	$result=pg_query("SELECT * FROM users.timewindow") or die('Unable to execute' .pg_last_error());
 	$line = pg_fetch_array($result, null, PGSQL_ASSOC);
@@ -53,7 +51,7 @@ CS4320
 
 	$username=$_SESSION['USERNAME'];
 	$today = date("Y-m-d");
-		
+
 	if (strtotime($studentStart) > strtotime($today) || strtotime($studentEnd) < strtotime($today) && $rows!=1)
 	{
 		echo "<div class=\"container\">
@@ -92,7 +90,7 @@ $descrip=pg_fetch_all_columns($result, 2);
           <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
               <li><a href="https://groupi-softwareeng.rhcloud.com/View/applicantdashboard.php">Home</a></li>
-			  <li class="active"><a href="https://groupi-softwareeng.rhcloud.com/View/application.php">Sign Up</a></li>
+			  <li class="active"><a href="https://groupi-softwareeng.rhcloud.com/View/application.php">Apply</a></li>
 			  <li><a href="https://groupi-softwareeng.rhcloud.com/Controller/logout.php">Logout</a></li>
         </div>
       </div>
@@ -113,13 +111,13 @@ $descrip=pg_fetch_all_columns($result, 2);
             </div>
           </div>
 		<?php
-			
+
 			$username=htmlspecialchars($_SESSION['USERNAME']);
 			$dbconn = pg_connect("host=/var/lib/openshift/5527ddbb5973cacee00000e9/postgresql/socket/ dbname=groupi user=adminup8hecl password=evnEWGkla94u") or die('Unable to connect to database' .pg_last_error());
 			$result = pg_prepare($dbconn, "Check", "select * from users.applications where username = $1");
 			$result = pg_execute($dbconn, "Check", array($username));
 			$rows=pg_num_rows($result);
-			
+
 			if ($rows==1)
 			{
 				echo "You have already submitted an application, please contact the administrator if you need to change anything.";
@@ -127,23 +125,21 @@ $descrip=pg_fetch_all_columns($result, 2);
 			}
 		?>
           <h2>Questions:</h2>
-  		<form name="appform" action="https://groupi-softwareeng.rhcloud.com/View/application.php" method="post" enctype="multipart/form-data">
-		<div class = "succes_box"></div>
-		<div class = "error_box"><br></div>
-		
-		
+   		<form id="appform" name="appform" action="https://groupi-softwareeng.rhcloud.com/Controller/upload.php" method="post" enctype="multipart/form-data">
+
+
     		Student ID:<br>
-    		<input type="text" name="id" placeholder="Ex: 12345678" required><br>
+    		<input type="text" name="id" placeholder="Ex: 12345678"><br>
 
 			Previous Position(s):<br>
-			<input type="text" name="prev" placeholder="Previous Position (see instructions)" required><br>
+			<input type="text" name="prev" placeholder="Previous Position (see instructions)"><br>
 
 			Current Position(s):<br>
-			<input type="text" name="curr" placeholder="Current Position (see instructions)" required><br><br>
+			<input type="text" name="curr" placeholder="Current Position (see instructions)"><br><br>
 
 			Wanted Positions:<br>
 <div>
-<select multiple id="select" name="select[]" required>
+<select multiple id="select" name="select[]">
 <?php
 	for($i=0;$i<count($depart); ++$i){
 		$whole[$i]=$dpart[$i]." ".$course[$i].": ".$descrip[$i];
@@ -154,37 +150,34 @@ $descrip=pg_fetch_all_columns($result, 2);
 <br><br>
 </body>
 
-</div>	
+</div>
 
       GPA:<br>
-      <input type="text" name="gpa" placeholder="GPA" required><br>
-	  
+      <input type="text" name="GPA" placeholder="GPA"><br>
 	  Anticipated Grad. Date:<br>
-      <input type="text" name="gradDate" placeholder="Ex: Fall 2016" required><br>
-
+      <input type="text" name="gradDate" placeholder="Ex: Fall 2016"><br>
       Advisor:<br>
-      <input type="text" name="advisor" placeholder="Advisor's Full Name" required><br>
+      <input type="text" name="advisor" placeholder="Advisor's Full Name"><br>
       Degree Type:<br>
-      <input type="text" name="degreetype" placeholder="BS/MS/PhD" required><br>
+      <input type="text" name="degreetype" placeholder="BS/MS/PhD"><br>
 	  Major:<br>
-	  <input type="text" name="major" placeholder="Major" required><br><br>
-	  
+	  <input type="text" name="major" placeholder="Major"><br><br>
 
       Graduate Student:<br>
       <input type="radio" name="gradstudent" value="true">Graduate<br>
       <input type="radio" name="gradstudent" value="false">Undergraduate<br><br>
-	            
+
 				<div class="alert alert-warning" role="alert">New TAs, ITAs, and PLAs who have received an appointment, are required to participate in the GATO
 		          (Graduate Assistant Teaching Orientation), which is offered just prior to the start of fall and winter terms. (You
 		          do not need to attend more than once.) Select if the requirement has been met or if you will attend in Aug./Jan.
 				</div>
-				
-<ul class="list-group">
+
+        <ul class="list-group">
           <li class="list-group-item">
-            <input type="radio" name="gato" value="false" required/> Completed GATO <br>
+            <input type="radio" name="gato" value="true" required/> Completed GATO <br>
           </li>
           <li class="list-group-item">
-            <input type="radio" name="gato" value="true"/> Will complete GATO <br>
+            <input type="radio" name="gato" value="false"/> Will complete GATO <br>
           </li>
         </ul>
         <ul class="list-group">
@@ -199,7 +192,7 @@ $descrip=pg_fetch_all_columns($result, 2);
         </ul>
 		<br>
 		<br>
-  		<input type="submit" value="Save and Continue">
+  		<input type="submit" name = "submit" value="Save and Continue">
   		</form>
   		</br>
 		<br>
@@ -209,77 +202,27 @@ $descrip=pg_fetch_all_columns($result, 2);
         <p><center><small>Group I</small></center></p>
       </div>
 
-
     </div> <!-- /container -->
-<script type="text/javascript">
 
-new FormValidator('appform', [{
-    name: 'id',
-    display: 'studentID',
-    rules: 'required|exact_length[8]|numeric'
-}, {
-    name: 'GPA',
-	display: 'GPA',
-    rules: 'required|numeric'
-}, {
-    name: 'gradDate',
-    display: 'gradeDate',
-    rules: 'min_length[8]'
-}, {
-    name: 'advisor',
-	display: 'advisor',
-    rules: 'required'
-}, {
-    name: 'degreetype',
-    display: 'degreetype',
-    rules: 'max_length[3]'
-}, {
-    name: 'major',
-	display: 'major',
-    rules: 'required'
-}], function(errors, evt) {
+<script language="JavaScript" type="text/javascript"
+    xml:space="preserve">//<![CDATA[
+//You should create the validator only after the definition of the HTML form
+  var frmvalidator  = new Validator("appform");
+  frmvalidator.addValidation("id","req","Please enter your 8 digit Student ID");
+  frmvalidator.addValidation("id","minlen=8","Student ID must be 8 digits");
+  frmvalidator.addValidation("id","maxlen=8","Student ID must be 8 digits");
+  frmvalidator.addValidation("id","num","Student ID must be 8 digits");
 
-    var SELECTOR_ERRORS = $('.error_box'),
-        SELECTOR_SUCCESS = $('.success_box');
+  frmvalidator.addValidation("GPA","req","GPA is required");
+  frmvalidator.addValidation("GPA","numeric","GPA cannot contains letters");
 
-    if (errors.length > 0) {
-        SELECTOR_ERRORS.empty();
+  frmvalidator.addValidation("graddate","req","Graduation date is required");
+  frmvalidator.addValidation("advisor","req","Advisor is required");
+  frmvalidator.addValidation("degreetype","req","Degree Type is required");
+  frmvalidator.addValidation("major","req","Major is required");
 
-        for (var i = 0, errorLength = errors.length; i < errorLength; i++) {
-            SELECTOR_ERRORS.append("✘ " + errors[i].message + '<br />');
-        }
+//]]></script>
 
-        SELECTOR_SUCCESS.css({ display: 'none' });
-        SELECTOR_ERRORS.fadeIn(200);
-    } else if(errors.length == 0){
-		<?php header("Location: https://groupi-softwareeng.rhcloud.com/Controller/upload.php");?>
-	} else {
-        SELECTOR_ERRORS.css({ display: 'none' });
-        SELECTOR_SUCCESS.fadeIn(200);
-    }
-
-    if (evt && evt.preventDefault) {
-        evt.preventDefault();
-    } else if (event) {
-        event.returnValue = false;
-    }
-});
-
-</script>
-
-<script type="text/javascript">
-
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-26362841-1']);
-  _gaq.push(['_trackPageview']);
-
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-
-</script>
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
