@@ -48,6 +48,23 @@
 				<span class=\"sr-only\"> Error:</span>✘ Time Window Closed</div>";
 				exit;
 	}
+
+	if(isset($_POST['submit'])){
+		$speak = htmlspecialchars($_POST['speak']);
+		$speakdate = htmlspecialchars($_POST['examdate']);
+		$speakscore = htmlspecialchars($_POST['examscore']);
+		$onita = htmlspecialchars($_POST['onita']);
+		
+		$dbconn = pg_connect("host=/var/lib/openshift/5527ddbb5973cacee00000e9/postgresql/socket/ dbname=groupi user=adminup8hecl password=evnEWGkla94u") or die('Unable to connect to database' .pg_last_error());
+
+		$query = 'insert into users.internationalapp values($1, $2, $3, $4, $5)';
+		$result = pg_prepare($dbconn, "insertion", $query) or die('Couldn\'t prepare the insertion statement'.pg_last_error());
+		$result = pg_execute($dbconn, "insertion", array($user, $speak, $speakscore, $speakdate, $onita))
+					or die ('Couldn\'t insert the data into international table: '. pg_last_error());
+		 
+		$redirect = "https://groupi-softwareeng.rhcloud.com/View/successful.php"; 
+		header("Location: $redirect");
+	}
 ?>
 
 <html lang="en">
@@ -128,7 +145,7 @@
             <input type = "radio" name = "speak" value = "true" required/>Requirement met
             <input type = "radio" name = "speak" value = "false"/>Will attend in August/January <br/><br/>
             Date of SPEAK exam: 
-            <input type = 'date' placeholder = 'Exam Date' name = 'examdate'/> <br/><br/>
+            <input type = 'text' placeholder = '(MM-DD-YYYY)' name = 'examdate'/> <br/><br/>
             Score of last SPEAK/OPT Exam (if applicable): 
             <input type = 'number' placeholder = 'Exam Score' min="0" max="100" name = 'examscore'/> <br/><br>
             ONITA, is a requirement for all international TAs and PLAs who have not previously attended this
@@ -146,24 +163,3 @@
 
 </html>
 
-<?php
-	if(isset($_POST['submit'])){
-		$speak = htmlspecialchars($_POST['speak']);
-		$speakdate = htmlspecialchars($_POST['examdate']);
-		$speakscore = htmlspecialchars($_POST['examscore']);
-		$onita = htmlspecialchars($_POST['onita']);
-		
-		$dbconn = pg_connect("host=/var/lib/openshift/5527ddbb5973cacee00000e9/postgresql/socket/ dbname=groupi user=adminup8hecl password=evnEWGkla94u") or die('Unable to connect to database' .pg_last_error());
-
-		$query = 'insert into users.internationalapp values($1, $2, $3, $4, $5)';
-		$result = pg_prepare($dbconn, "insertion", $query) or die('Couldn\'t prepare the insertion statement'.pg_last_error());
-		$result = pg_execute($dbconn, "insertion", array($user, $speak, $speakscore, $speakdate, $onita))
-					or die ('Couldn\'t insert the data into international table: '. pg_last_error());
-				
-		pg_free_result($result);
-		pg_close($dbconn);
-		 
-		$redirect = "https://groupi-softwareeng.rhcloud.com/View/successful.php"; 
-		header("Location: $redirect");
-	}
-?>
