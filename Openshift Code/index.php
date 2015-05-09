@@ -113,6 +113,8 @@
 	</div>
 </div>
 
+<center><a href="https://sites.google.com/site/swegroupidevelopment/user-documentation">User Documentation</a></center><br>
+
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
   </body>
