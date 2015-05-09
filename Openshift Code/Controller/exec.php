@@ -7,6 +7,7 @@
 		$username = htmlspecialchars($_POST['pk']);
 		$coursenum = htmlspecialchars($_POST['coursenum']);
 		$action = htmlspecialchars($_POST['action']);
+		echo $action;
 	}
 	if($action == 'edit'){
 		echo "<title>Edit Applicant</title>";
@@ -14,6 +15,7 @@
 	else if($action == 'remove'){
 		echo "<title>Remove Application</title>";
 	}
+
 	else if($action == 'assign'){
 		echo "<title>Assign TA</title>";
 	}
@@ -168,7 +170,7 @@
 		    echo "<div class=\"panel panel-default\">";
 			echo "<!-- Default panel contents -->";
 			echo "<div class=\"panel-heading\"><center>Unassign TA</center></div>";
-						
+
 			$query = 'select username as pawprint, fname as First, lname as Last, rating, courseNum as Desired from users.applicantWants inner join users.user_info using(username) where username = $1 and courseNum = $2';			
 			$result = pg_prepare($dbconn, 'unassignQuery', $query) or die("Could not prepare unassignQuery:".pg_last_error());
 			$result = pg_execute($dbconn, 'unassignQuery', array($username, $coursenum)) or die ("could not execute unassignQuery: ".pg_last_error());
@@ -225,7 +227,7 @@
 			$result = pg_execute($dbconn, 'assignUpdate', array('Approved',$username, $coursenum)) or die("Couldn't execute assignUpdate statement:".pg_last_error());
 			echo "Update successful!\n";
 			echo "<br/>\n";
-			echo "<a href = \"https://groupi-softwareeng.rhcloud.com/View/pendingapps.php\">Return to Admin Dashboard</a>";
+			echo "<a href = \"https://groupi-softwareeng.rhcloud.com/View/admindashboard.php\">Return to Admin Dashboard</a>";
 		}
 		else if($save_action == 'edit'){
 			$rank = htmlspecialchars($_POST['rating']);
@@ -236,7 +238,7 @@
 			$result = pg_execute($dbconn, 'editUpdate', array($rank, $comment, $username)) or die("could not execute editUpdate statement: ".pg_last_error());
 			echo "Update successful!\n";
 			echo "<br/>\n";
-			echo "<a href = \"https://groupi-softwareeng.rhcloud.com/View/pendingapps.php\">Return to Admin Dashboard</a>";
+			echo "<a href = \"https://groupi-softwareeng.rhcloud.com/View/admindashboard.php\">Return to Admin Dashboard</a>";
 		}
 		else if($save_action == 'remove'){
 			$query = 'delete from users.applicantWants where username = $1';
@@ -253,7 +255,7 @@
 			
 			echo "Delete successful!\n";
 			echo "<br/>\n";
-			echo "<a href = \"https://groupi-softwareeng.rhcloud.com/View/pendingapps.php\">Return to Admin Dashboard</a>";
+			echo "<a href = \"https://groupi-softwareeng.rhcloud.com/View/admindashboard.php\">Return to Admin Dashboard</a>";
 		}
 		else if($save_action == 'unassign'){
 		    $query = 'update users.applicantWants set status=$1 where username = $2 and courseNum=$3';
@@ -261,7 +263,7 @@
 			$result = pg_execute($dbconn, 'unassignUpdate', array('Pending',$username, $coursenum)) or die("Couldn't execute unassignUpdate statement:".pg_last_error());
 			echo "Update successful!\n";
 			echo "<br/>\n";
-			echo "<a href = \"https://groupi-softwareeng.rhcloud.com/View/pendingapps.php\">Return to Admin Dashboard</a>";
+			echo "<a href = \"https://groupi-softwareeng.rhcloud.com/View/admindashboard.php\">Return to Admin Dashboard</a>";
 		}
 		else if($save_action == 'deny'){
 		    $query = 'update users.applicantWants set status=$1 where username = $2 and courseNum=$3';
@@ -269,7 +271,7 @@
 			$result = pg_execute($dbconn, 'denyUpdate', array('Denied',$username, $coursenum)) or die("Couldn't execute denhyUpdate statement:".pg_last_error());
 			echo "Update successful!\n";
 			echo "<br/>\n";
-			echo "<a href = \"https://groupi-softwareeng.rhcloud.com/View/pendingapps.php\">Return to Admin Dashboard</a>";
+			echo "<a href = \"https://groupi-softwareeng.rhcloud.com/View/admindashboard.php\">Return to Admin Dashboard</a>";
 		}
 	}
 ?>
